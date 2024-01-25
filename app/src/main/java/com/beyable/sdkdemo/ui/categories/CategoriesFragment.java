@@ -16,16 +16,15 @@ public class CategoriesFragment extends Fragment {
 
     private FragmentCategoriesBinding binding;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        CategoriesViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(CategoriesViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
+
+        CategoriesViewModel categoriesViewModel = new ViewModelProvider(this).get(CategoriesViewModel.class);
 
         binding = FragmentCategoriesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textCategories;
+        categoriesViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
