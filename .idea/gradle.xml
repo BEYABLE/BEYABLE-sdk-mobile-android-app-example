@@ -11,9 +11,9 @@
         <option name="gradleJvm" value="jbr-17 (2)" />
         <option name="modules">
           <set>
+            <option value="$PROJECT_DIR$/../beyable_sdk/sdk" />
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/sdk" />
           </set>
         </option>
       </GradleProjectSettings>

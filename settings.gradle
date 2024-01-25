@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "Beyable SDK Demo"
 include ':app'
 include ':sdk'
+project(':sdk').projectDir=new File('../beyable_sdk/sdk')

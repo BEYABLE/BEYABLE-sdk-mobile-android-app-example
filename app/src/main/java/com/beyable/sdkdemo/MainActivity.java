@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         String prodKey = "aaaaaaaaa02a395426f4846fe8f7c478d6dc9c444";
         // Clef preprod
         String preProdKey = "aaaaaaaaa2703cf6e44624d9b81f15f14893d1d6a";
-        Beyable.initInstance(preProdKey);
+        Beyable.initInstance(getApplicationContext(), preProdKey);
     }
 
 }
