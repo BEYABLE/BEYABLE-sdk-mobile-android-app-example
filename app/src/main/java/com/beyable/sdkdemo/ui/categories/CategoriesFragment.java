@@ -19,8 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.beyable.beyable_sdk.Beyable;
-import com.beyable.beyable_sdk.models.BYPage;
 import com.beyable.sdkdemo.R;
 import com.beyable.sdkdemo.databinding.FragmentCategoriesBinding;
 import com.beyable.sdkdemo.models.Category;
@@ -54,7 +52,7 @@ public class CategoriesFragment extends Fragment {
         // LinearLayoutManager is used here, this will layout the elements in a similar fashion
         // to the way ListView would layout elements. The RecyclerView.LayoutManager defines how
         // elements are laid out.
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
 
         // Make request to get all the categories
@@ -107,12 +105,9 @@ public class CategoriesFragment extends Fragment {
                         // Set the recycler view with the data collected
                         CategoriesAdapter categoriesAdapter = new CategoriesAdapter(dataSet);
 
-
                         recyclerView.setAdapter(categoriesAdapter);
                         // Hide the progress view
                         progressBar.setVisibility(View.GONE);
-                        // Call the BEYABLE sdk
-                        callBeyableSDK();
                     }
                 });
             }
@@ -124,18 +119,6 @@ public class CategoriesFragment extends Fragment {
         progressBar.setVisibility(View.GONE);
     }
 
-    private void callBeyableSDK() {
-        // CALL Beyable SDK to inform that we are viewing a page
-        try {
-            Beyable.getSharedInstance().sendPageView(getView(), new BYPage(
-                    BYPage.BYPageType.CATEGORY,
-                    "https://dummy_app.com",
-                    "categories/"
-            ));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
 
 

@@ -1,6 +1,7 @@
 package com.beyable.sdkdemo;
 
 import android.os.Bundle;
+import android.view.ViewGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -9,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.beyable.beyable_sdk.Beyable;
+import com.beyable.beyable_sdk.models.BYPage;
 import com.beyable.sdkdemo.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,6 +40,23 @@ public class MainActivity extends AppCompatActivity {
         // Clef preprod
         String preProdKey = "aaaaaaaaa2703cf6e44624d9b81f15f14893d1d6a";
         Beyable.initInstance(getApplicationContext(), preProdKey);
+        sendPageViewToBeyable();
     }
 
+
+    private void sendPageViewToBeyable() {
+        // Retrieve the root view of the activity
+        final ViewGroup rootView = (ViewGroup) ((ViewGroup) this
+                .findViewById(android.R.id.content)).getChildAt(0);
+        // CALL Beyable SDK to inform that we are viewing the home page
+        try {
+            Beyable.getSharedInstance().sendPageView(rootView, new BYPage(
+                    BYPage.BYPageType.HOME,
+                    "https://dummy_app.com",
+                    "/"
+            ));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -19,7 +19,6 @@ public class CategoryActivity extends AppCompatActivity {
 
     public final static String CATEGORY_INTENT_KEY = "category_activity.category";
 
-    private ActivityCategoryBinding binding;
     private Category category;
 
     @Override
@@ -30,7 +29,7 @@ public class CategoryActivity extends AppCompatActivity {
         category = (Category) getIntent().getSerializableExtra(CATEGORY_INTENT_KEY);
 
         // Set the views
-        binding = ActivityCategoryBinding.inflate(getLayoutInflater());
+        ActivityCategoryBinding binding = ActivityCategoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         Toolbar toolbar = binding.toolbar;
