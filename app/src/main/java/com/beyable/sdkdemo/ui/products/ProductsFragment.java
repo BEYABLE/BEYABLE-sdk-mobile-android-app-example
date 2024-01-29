@@ -1,7 +1,5 @@
-package com.beyable.sdkdemo.ui.categories;
+package com.beyable.sdkdemo.ui.products;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -25,7 +23,7 @@ import com.beyable.sdkdemo.R;
 import com.beyable.sdkdemo.databinding.FragmentCategoriesBinding;
 import com.beyable.sdkdemo.models.Category;
 import com.beyable.sdkdemo.tools.Requester;
-import com.beyable.sdkdemo.ui.category.CategoryActivity;
+import com.beyable.sdkdemo.ui.categories.CategoriesViewModel;
 
 import org.json.JSONArray;
 
@@ -33,9 +31,9 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class CategoriesFragment extends Fragment {
+public class ProductsFragment extends Fragment {
 
-    protected final static String LOG_TAG = CategoriesFragment.class.getSimpleName();
+    protected final static String LOG_TAG = ProductsFragment.class.getSimpleName();
 
     private FragmentCategoriesBinding binding;
 
@@ -105,9 +103,7 @@ public class CategoriesFragment extends Fragment {
                     @Override
                     public void run() {
                         // Set the recycler view with the data collected
-                        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(dataSet);
-
-
+                        ProductsAdapter categoriesAdapter = new ProductsAdapter(dataSet);
                         recyclerView.setAdapter(categoriesAdapter);
                         // Hide the progress view
                         progressBar.setVisibility(View.GONE);
@@ -139,7 +135,7 @@ public class CategoriesFragment extends Fragment {
 }
 
 
-class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder> {
+class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHolder> {
 
     private ArrayList<Category> dataSet;
 
@@ -168,7 +164,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
      * @param dataSet ArrayList containing the data to populate views to be used
      * by RecyclerView
      */
-    public CategoriesAdapter(ArrayList<Category> dataSet) {
+    public ProductsAdapter(ArrayList<Category> dataSet) {
         this.dataSet = dataSet;
     }
 
@@ -201,11 +197,6 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     }
 
     private void categoryClicked(View view, int position) {
-        // Launch the category activity
-        Context context = view.getContext();
-        Category category = dataSet.get(position);
-        Intent intent = new Intent(context, CategoryActivity.class);
-        intent.putExtra(CategoryActivity.CATEGORY_INTENT_KEY, category);
-        context.startActivity(intent);
+
     }
 }

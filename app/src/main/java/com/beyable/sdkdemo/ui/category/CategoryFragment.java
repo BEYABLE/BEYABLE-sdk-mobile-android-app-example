@@ -1,7 +1,5 @@
-package com.beyable.sdkdemo.ui.categories;
+package com.beyable.sdkdemo.ui.category;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -13,58 +11,61 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.NetworkImageView;
 import com.beyable.beyable_sdk.Beyable;
 import com.beyable.beyable_sdk.models.BYPage;
 import com.beyable.sdkdemo.R;
-import com.beyable.sdkdemo.databinding.FragmentCategoriesBinding;
+import com.beyable.sdkdemo.databinding.FragmentCategoryBinding;
 import com.beyable.sdkdemo.models.Category;
+import com.beyable.sdkdemo.models.Product;
 import com.beyable.sdkdemo.tools.Requester;
-import com.beyable.sdkdemo.ui.category.CategoryActivity;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class CategoriesFragment extends Fragment {
+public class CategoryFragment extends Fragment {
 
-    protected final static String LOG_TAG = CategoriesFragment.class.getSimpleName();
+    protected final static String LOG_TAG = CategoryFragment.class.getSimpleName();
 
-    private FragmentCategoriesBinding binding;
+    private FragmentCategoryBinding binding;
 
+    private Category category;
     private View progressBar;
     private RecyclerView recyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
-        CategoriesViewModel categoriesViewModel = new ViewModelProvider(this).get(CategoriesViewModel.class);
-
-        binding = FragmentCategoriesBinding.inflate(inflater, container, false);
+        binding = FragmentCategoryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        // Get the data from activity
+        category = (Category) getActivity().getIntent().getSerializableExtra(CategoryActivity.CATEGORY_INTENT_KEY);
 
         // Init Views
         progressBar = binding.progressBar;
-        recyclerView = binding.recyclerViewCategories;
+        recyclerView = binding.recyclerViewCategory;
         // LinearLayoutManager is used here, this will layout the elements in a similar fashion
         // to the way ListView would layout elements. The RecyclerView.LayoutManager defines how
         // elements are laid out.
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
         // Make request to get all the categories
         progressBar.setVisibility(View.VISIBLE);
-        Requester.getSharedInstance(root.getContext()).makeArrayGetRequest(
-                Requester.CATEGORIES_PAGE,
-                new JSONArray(),
-                new Response.Listener<JSONArray>() {
+        String endpoint = Requester.CATEGORY_PAGE + category.getCategory();
+        Requester.getSharedInstance(root.getContext()).makeObjGetRequest(endpoint,
+                new JSONObject(),
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONObject response) {
                         onRequestDone(response);
                     }
                 },
@@ -87,7 +88,7 @@ public class CategoriesFragment extends Fragment {
         binding = null;
     }
 
-    private void onRequestDone(JSONArray result) {
+    private void onRequestDone(JSONObject result) {
         // Prepare a executor to parse the data in background
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
@@ -96,18 +97,19 @@ public class CategoriesFragment extends Fragment {
             @Override
             public void run() {
                 //Background work here
-                ArrayList<Category> dataSet = new ArrayList<>();
-                for (int i=0; i < result.length(); i++) {
-                    dataSet.add(new Category(result.optString(i)));
+                ArrayList<Product> dataSet = new ArrayList<>();
+                JSONArray productsArray = result.optJSONArray("products");
+                if (productsArray != null) {
+                    for (int i=0; i < productsArray.length(); i++) {
+                        dataSet.add(new Product(productsArray.optJSONObject(i)));
+                    }
                 }
 
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
                         // Set the recycler view with the data collected
-                        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(dataSet);
-
-
+                        CategoryAdapter categoriesAdapter = new CategoryAdapter(dataSet);
                         recyclerView.setAdapter(categoriesAdapter);
                         // Hide the progress view
                         progressBar.setVisibility(View.GONE);
@@ -139,25 +141,35 @@ public class CategoriesFragment extends Fragment {
 }
 
 
-class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder> {
+class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
-    private ArrayList<Category> dataSet;
+    private ArrayList<Product> dataSet;
 
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder)
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
+        private final NetworkImageView networkImageView;
         private final TextView titleView;
+        private final TextView descriptionTextView;
 
         public ViewHolder(View view) {
             super(view);
-            // Define click listener for the ViewHolder's View
-            titleView = (TextView) view.findViewById(R.id.titleView);
+            networkImageView = view.findViewById(R.id.network_image_view);
+            titleView = view.findViewById(R.id.title_text_view);
+            descriptionTextView = view.findViewById(R.id.description_text_view);
         }
 
-        public void setContent(Category category) {
-            titleView.setText(category.getTitle());
+        public void setContent(Product product) {
+            titleView.setText(product.getTitle());
+            descriptionTextView.setText(product.getDescription());
+            Requester.getSharedInstance(itemView.getContext()).setImageForNetworkImageView(
+                    networkImageView,
+                    product.getThumbnail(),
+                    R.drawable.ic_dashboard_black_24dp,
+                    R.drawable.ic_notifications_black_24dp);
         }
 
     }
@@ -168,7 +180,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
      * @param dataSet ArrayList containing the data to populate views to be used
      * by RecyclerView
      */
-    public CategoriesAdapter(ArrayList<Category> dataSet) {
+    public CategoryAdapter(ArrayList<Product> dataSet) {
         this.dataSet = dataSet;
     }
 
@@ -176,7 +188,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     @NonNull @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.category_row_item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.product_row_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
@@ -189,7 +201,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                categoryClicked(view, viewHolder.getAdapterPosition());
+                productClicked(view, viewHolder.getAdapterPosition());
             }
         });
     }
@@ -200,12 +212,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
         return dataSet.size();
     }
 
-    private void categoryClicked(View view, int position) {
-        // Launch the category activity
-        Context context = view.getContext();
-        Category category = dataSet.get(position);
-        Intent intent = new Intent(context, CategoryActivity.class);
-        intent.putExtra(CategoryActivity.CATEGORY_INTENT_KEY, category);
-        context.startActivity(intent);
+    private void productClicked(View view, int position) {
+
     }
 }
