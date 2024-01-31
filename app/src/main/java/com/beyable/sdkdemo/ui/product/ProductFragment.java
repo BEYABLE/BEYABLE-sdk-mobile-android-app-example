@@ -8,12 +8,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.beyable.sdkdemo.R;
 import com.beyable.sdkdemo.databinding.FragmentProductBinding;
 import com.beyable.sdkdemo.models.Product;
+import com.beyable.sdkdemo.ui.adapters.CarouselImageAdapter;
 
 import java.util.ArrayList;
 
@@ -23,15 +23,22 @@ public class ProductFragment extends Fragment {
 
     private FragmentProductBinding binding;
 
-    private RecyclerView recyclerView;
+    private Product product;
+    private RecyclerView carouselView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProductBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        // Get the data from activity
+        product = (Product) getActivity().getIntent().getSerializableExtra(ProductActivity.PRODUCT_INTENT_KEY);
         // Init Views
-        recyclerView = binding.recyclerView;
-        setRecyclerView();
+        carouselView = binding.carouselView;
+        setCarouselView();
+        binding.titleView.setText(product.getTitle());
+        binding.descriptionView.setText(product.getDescription());
+        binding.priceView.setText(Double.toString(product.getPrice())+"€");
+
 
         return root;
     }
@@ -42,10 +49,11 @@ public class ProductFragment extends Fragment {
         binding = null;
     }
 
-    private void setRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    }
 
+    private void setCarouselView() {
+        CarouselImageAdapter adapter = new CarouselImageAdapter(getContext(), product.getImages());
+        carouselView.setAdapter(adapter);
+    }
 
 }
 

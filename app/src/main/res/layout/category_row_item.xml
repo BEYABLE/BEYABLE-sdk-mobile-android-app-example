@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:textColor="@color/black"
-        android:textAlignment="center"
-        android:layout_gravity="center"
+        android:textAlignment="textStart"
         android:padding="12dp"/>
 </com.google.android.material.card.MaterialCardView>
