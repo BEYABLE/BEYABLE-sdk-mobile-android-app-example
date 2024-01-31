@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_background"
     tools:context=".ui.home.HomeFragment">
 
     <LinearLayout
@@ -28,5 +29,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/logo_beyable"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_default"
+            android:text="@string/home_welcome_desc"
+            android:textAlignment="center"/>
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_default"
+        android:textAlignment="center"
+        android:text="@string/home_copyrights"
+        android:textStyle="italic"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

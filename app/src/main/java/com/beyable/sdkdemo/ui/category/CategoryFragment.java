@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Response;
@@ -59,7 +59,7 @@ public class CategoryFragment extends Fragment {
         // LinearLayoutManager is used here, this will layout the elements in a similar fashion
         // to the way ListView would layout elements. The RecyclerView.LayoutManager defines how
         // elements are laid out.
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
 
         // Make request to get all the categories
@@ -143,18 +143,15 @@ class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
         private final NetworkImageView networkImageView;
         private final TextView titleView;
-        private final TextView descriptionTextView;
 
         public ViewHolder(View view) {
             super(view);
             networkImageView = view.findViewById(R.id.network_image_view);
             titleView = view.findViewById(R.id.title_text_view);
-            descriptionTextView = view.findViewById(R.id.description_text_view);
         }
 
         public void setContent(Product product) {
             titleView.setText(product.getTitle());
-            descriptionTextView.setText(product.getDescription());
             Requester.getSharedInstance(itemView.getContext()).setImageForNetworkImageView(
                     networkImageView,
                     product.getThumbnail(),

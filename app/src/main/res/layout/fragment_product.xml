@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_background"
     tools:context=".ui.categories.CategoriesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -35,7 +36,8 @@
                     android:textSize="@dimen/text_size_xxbig"
                     android:text="99€00"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"/>
+                    android:layout_alignParentEnd="true"
+                    android:textColor="#4CAF50"/>
                 <TextView
                     android:id="@+id/title_view"
                     android:layout_width="match_parent"
@@ -53,7 +55,17 @@
                 android:layout_height="wrap_content"
                 style="@style/TextAppearance.AppCompat.Body2"
                 android:textColor="@color/black"
-                android:layout_marginTop="@dimen/padding_default"/>
+                android:layout_marginTop="@dimen/padding_big"
+                android:layout_marginBottom="@dimen/padding_big"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                app:icon="@drawable/ic_add_shopping_cart_24"
+                android:text="@string/product_add_cart"
+                android:padding="@dimen/padding_xbig"
+                android:layout_margin="@dimen/padding_big"/>
         </LinearLayout>
 
     </ScrollView>

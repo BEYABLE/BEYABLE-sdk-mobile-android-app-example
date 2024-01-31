@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:layout_margin="12dp"
+    android:layout_margin="@dimen/padding_default"
     android:layout_gravity="center">
 
     <TextView
@@ -14,5 +14,8 @@
         android:textSize="24sp"
         android:textColor="@color/black"
         android:textAlignment="textStart"
-        android:padding="12dp"/>
+        android:paddingStart="@dimen/padding_big"
+        android:paddingEnd="@dimen/padding_big"
+        android:paddingTop="@dimen/padding_xxbig"
+        android:paddingBottom="@dimen/padding_xxbig"/>
 </com.google.android.material.card.MaterialCardView>
