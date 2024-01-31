@@ -43,5 +43,6 @@
         android:textAlignment="center"
         android:text="@string/home_copyrights"
         android:textStyle="italic"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="72dp"/>
 </RelativeLayout>
