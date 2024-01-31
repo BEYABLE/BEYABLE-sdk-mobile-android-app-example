@@ -3,8 +3,9 @@ package com.beyable.sdkdemo.ui.category;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
+import com.beyable.beyable_sdk.Beyable;
+import com.beyable.beyable_sdk.models.BYPage;
 import com.beyable.sdkdemo.databinding.ActivityCategoryBinding;
 import com.beyable.sdkdemo.models.Category;
 
@@ -32,8 +33,20 @@ public class CategoryActivity extends AppCompatActivity {
         ActivityCategoryBinding binding = ActivityCategoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Toolbar toolbar = binding.toolbar;
-        toolbar.setTitle(category.getTitle());
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle(category.getTitle());
+
+        sendPageViewToBeyable();
+    }
+
+
+    private void sendPageViewToBeyable() {
+        // CALL Beyable SDK to inform that we are viewing the home page
+        Beyable.getSharedInstance().sendPageView(this, new BYPage(
+                BYPage.BYPageType.CATEGORY,
+                "https://dummy_app.com",
+                "/"
+        ));
     }
 
 }

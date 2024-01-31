@@ -11,8 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.beyable.beyable_sdk.Beyable;
-import com.beyable.beyable_sdk.models.BYPage;
 import com.beyable.sdkdemo.R;
 import com.beyable.sdkdemo.databinding.FragmentProductBinding;
 import com.beyable.sdkdemo.models.Product;
@@ -35,9 +33,6 @@ public class ProductFragment extends Fragment {
         recyclerView = binding.recyclerView;
         setRecyclerView();
 
-        // Call the BEYABLE sdk
-        callBeyableSDK();
-
         return root;
     }
 
@@ -49,20 +44,6 @@ public class ProductFragment extends Fragment {
 
     private void setRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-    }
-
-    private void callBeyableSDK() {
-        // CALL Beyable SDK to inform that we are viewing a page
-        try {
-            Beyable.getSharedInstance().sendPageView(getView(), new BYPage(
-                    BYPage.BYPageType.PRODUCT,
-                    "https://dummy_app.com",
-                    "categories/"
-            ));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 }
 

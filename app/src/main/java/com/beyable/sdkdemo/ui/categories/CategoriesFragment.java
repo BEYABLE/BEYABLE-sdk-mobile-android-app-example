@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.beyable.beyable_sdk.Beyable;
+import com.beyable.beyable_sdk.models.BYPage;
 import com.beyable.sdkdemo.R;
 import com.beyable.sdkdemo.databinding.FragmentCategoriesBinding;
 import com.beyable.sdkdemo.models.Category;
@@ -49,10 +51,8 @@ public class CategoriesFragment extends Fragment {
         // Init Views
         progressBar = binding.progressBar;
         recyclerView = binding.recyclerViewCategories;
-        // LinearLayoutManager is used here, this will layout the elements in a similar fashion
-        // to the way ListView would layout elements. The RecyclerView.LayoutManager defines how
-        // elements are laid out.
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
 
 
         // Make request to get all the categories
@@ -108,6 +108,8 @@ public class CategoriesFragment extends Fragment {
                         recyclerView.setAdapter(categoriesAdapter);
                         // Hide the progress view
                         progressBar.setVisibility(View.GONE);
+
+                        sendPageViewToBeyable(getView());
                     }
                 });
             }
@@ -119,6 +121,16 @@ public class CategoriesFragment extends Fragment {
         progressBar.setVisibility(View.GONE);
     }
 
+
+
+    private void sendPageViewToBeyable(View view) {
+        // CALL Beyable SDK to inform that we are viewing the home page
+        Beyable.getSharedInstance().sendPageView(view, new BYPage(
+                BYPage.BYPageType.HOME,
+                "https://dummy_app.com",
+                "/"
+        ));
+    }
 }
 
 

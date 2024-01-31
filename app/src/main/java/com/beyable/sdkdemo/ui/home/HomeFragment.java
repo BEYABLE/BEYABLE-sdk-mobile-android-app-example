@@ -4,12 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.beyable.beyable_sdk.Beyable;
+import com.beyable.beyable_sdk.models.BYPage;
 import com.beyable.sdkdemo.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -24,9 +25,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
+        sendPageViewToBeyable(root);
         return root;
     }
 
@@ -36,5 +35,13 @@ public class HomeFragment extends Fragment {
         binding = null;
     }
 
+    private void sendPageViewToBeyable(View rootView) {
+        // CALL Beyable SDK to inform that we are viewing the home page
+        Beyable.getSharedInstance().sendPageView(rootView, new BYPage(
+                BYPage.BYPageType.HOME,
+                "https://dummy_app.com",
+                "/"
+        ));
+    }
 
 }

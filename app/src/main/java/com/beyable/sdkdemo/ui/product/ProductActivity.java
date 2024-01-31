@@ -3,8 +3,9 @@ package com.beyable.sdkdemo.ui.product;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
+import com.beyable.beyable_sdk.Beyable;
+import com.beyable.beyable_sdk.models.BYPage;
 import com.beyable.sdkdemo.databinding.ActivityProductBinding;
 import com.beyable.sdkdemo.models.Product;
 
@@ -33,9 +34,19 @@ public class ProductActivity extends AppCompatActivity {
         ActivityProductBinding binding = ActivityProductBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Toolbar toolbar = binding.toolbar;
-        toolbar.setTitle(product.getTitle());
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle(product.getTitle());
+
+        sendPageViewToBeyable();
     }
 
 
+    private void sendPageViewToBeyable() {
+        // CALL Beyable SDK to inform that we are viewing the home page
+        Beyable.getSharedInstance().sendPageView(this, new BYPage(
+                BYPage.BYPageType.PRODUCT,
+                "https://dummy_app.com",
+                "/"
+        ));
+    }
 }

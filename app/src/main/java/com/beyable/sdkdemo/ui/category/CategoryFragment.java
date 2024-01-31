@@ -1,5 +1,7 @@
 package com.beyable.sdkdemo.ui.category;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -17,13 +19,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.NetworkImageView;
-import com.beyable.beyable_sdk.Beyable;
-import com.beyable.beyable_sdk.models.BYPage;
 import com.beyable.sdkdemo.R;
 import com.beyable.sdkdemo.databinding.FragmentCategoryBinding;
 import com.beyable.sdkdemo.models.Category;
 import com.beyable.sdkdemo.models.Product;
 import com.beyable.sdkdemo.tools.Requester;
+import com.beyable.sdkdemo.ui.product.ProductActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -52,6 +53,7 @@ public class CategoryFragment extends Fragment {
         // Init Views
         progressBar = binding.progressBar;
         recyclerView = binding.recyclerViewCategory;
+        binding.categoryTitleView.setText(category.getTitle());
         // LinearLayoutManager is used here, this will layout the elements in a similar fashion
         // to the way ListView would layout elements. The RecyclerView.LayoutManager defines how
         // elements are laid out.
@@ -113,8 +115,6 @@ public class CategoryFragment extends Fragment {
                         recyclerView.setAdapter(categoriesAdapter);
                         // Hide the progress view
                         progressBar.setVisibility(View.GONE);
-                        // Call the BEYABLE sdk
-                        callBeyableSDK();
                     }
                 });
             }
@@ -126,18 +126,6 @@ public class CategoryFragment extends Fragment {
         progressBar.setVisibility(View.GONE);
     }
 
-    private void callBeyableSDK() {
-        // CALL Beyable SDK to inform that we are viewing a page
-        try {
-            Beyable.getSharedInstance().sendPageView(getView(), new BYPage(
-                    BYPage.BYPageType.CATEGORY,
-                    "https://dummy_app.com",
-                    "categories/"
-            ));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
 
 
@@ -213,6 +201,11 @@ class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
     }
 
     private void productClicked(View view, int position) {
-
+        // Launch the product activity
+        Context context = view.getContext();
+        Product product = dataSet.get(position);
+        Intent intent = new Intent(context, ProductActivity.class);
+        intent.putExtra(ProductActivity.PRODUCT_INTENT_KEY, product);
+        context.startActivity(intent);
     }
 }

@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.beyable.beyable_sdk.Beyable;
+import com.beyable.beyable_sdk.models.BYPage;
 import com.beyable.sdkdemo.databinding.ActivityMainBinding;
 
 /**
@@ -23,6 +25,16 @@ public class ProductsActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        sendPageViewToBeyable();
     }
 
+    private void sendPageViewToBeyable() {
+        // CALL Beyable SDK to inform that we are viewing the home page
+        Beyable.getSharedInstance().sendPageView(this, new BYPage(
+                BYPage.BYPageType.CATEGORY,
+                "https://dummy_app.com",
+                "/"
+        ));
+    }
 }
