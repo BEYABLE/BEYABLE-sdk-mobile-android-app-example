@@ -54,6 +54,8 @@ public class CategoryFragment extends Fragment {
         progressBar = binding.progressBar;
         recyclerView = binding.recyclerViewCategory;
         binding.categoryTitleView.setText(category.getTitle());
+
+
         // LinearLayoutManager is used here, this will layout the elements in a similar fashion
         // to the way ListView would layout elements. The RecyclerView.LayoutManager defines how
         // elements are laid out.

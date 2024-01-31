@@ -33,12 +33,20 @@ public class CategoryActivity extends AppCompatActivity {
         ActivityCategoryBinding binding = ActivityCategoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        if (getSupportActionBar() != null)
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(category.getTitle());
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         sendPageViewToBeyable();
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        getOnBackPressedDispatcher().onBackPressed();
+        return true;
+    }
 
     private void sendPageViewToBeyable() {
         // CALL Beyable SDK to inform that we are viewing the home page

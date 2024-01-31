@@ -45,6 +45,8 @@ public class ProductFragment extends Fragment {
     private void setRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
+
+
 }
 
 
