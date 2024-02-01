@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.beyable.beyable_sdk.Beyable;
 import com.beyable.beyable_sdk.models.BYPage;
+import com.beyable.sdkdemo.R;
 import com.beyable.sdkdemo.databinding.ActivityCategoryBinding;
 import com.beyable.sdkdemo.models.Category;
 
@@ -37,6 +38,7 @@ public class CategoryActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(category.getTitle());
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setLogo(R.drawable.logo_beyable_small);
         }
 
         sendPageViewToBeyable();

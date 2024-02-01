@@ -37,11 +37,8 @@ public class HomeFragment extends Fragment {
 
     private void sendPageViewToBeyable(View rootView) {
         // CALL Beyable SDK to inform that we are viewing the home page
-        Beyable.getSharedInstance().sendPageView(rootView, new BYPage(
-                BYPage.BYPageType.HOME,
-                "https://dummy_app.com",
-                "/"
-        ));
+        BYPage page = new BYPage(BYPage.BYPageType.HOME, "https://beyable.demo", "");
+        Beyable.getSharedInstance().sendPageView(rootView, page);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.beyable.sdkdemo.ui.product;
+package com.beyable.sdkdemo.ui.cart;
 
 import android.os.Bundle;
 
@@ -7,36 +7,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.beyable.beyable_sdk.Beyable;
 import com.beyable.beyable_sdk.models.BYPage;
 import com.beyable.sdkdemo.R;
-import com.beyable.sdkdemo.databinding.ActivityProductBinding;
-import com.beyable.sdkdemo.models.Product;
+import com.beyable.sdkdemo.databinding.ActivityCartBinding;
 
 
 /**
  * Created by MarKinho on 29/01/2024.
  * <p>
- * Wisepear Techlab
- * All rights reserved
  **/
 
-public class ProductActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity {
 
-    private final static String LOG_TAG = ProductActivity.class.getSimpleName();
-    public final static String PRODUCT_INTENT_KEY = "product_activity.product";
+    private final static String LOG_TAG = CartActivity.class.getSimpleName();
 
-    private Product product;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Get the data
-        product = (Product) getIntent().getSerializableExtra(PRODUCT_INTENT_KEY);
 
-        ActivityProductBinding binding = ActivityProductBinding.inflate(getLayoutInflater());
+        ActivityCartBinding binding = ActivityCartBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(product.getTitle());
+            getSupportActionBar().setTitle("Mon panier");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setLogo(R.drawable.logo_beyable_small);
@@ -54,10 +47,7 @@ public class ProductActivity extends AppCompatActivity {
 
     private void sendPageViewToBeyable() {
         // CALL Beyable SDK to inform that we are viewing the home page
-        Beyable.getSharedInstance().sendPageView(this, new BYPage(
-                BYPage.BYPageType.PRODUCT,
-                "https://dummy_app.com",
-                "/"
-        ));
+        BYPage page = new BYPage(BYPage.BYPageType.CART, "https://beyable.demo", "cart/");
+        Beyable.getSharedInstance().sendPageView(this, page);
     }
 }

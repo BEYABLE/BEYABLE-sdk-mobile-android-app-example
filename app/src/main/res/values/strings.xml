@@ -5,6 +5,7 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_category">Categorie</string>
     <string name="title_product">Produit</string>
+    <string name="title_cart">Panier</string>
 
     <string name="home_welcome_message">Bienvenue sur la démo du SDK mobile</string>
     <string name="home_welcome_desc">Données fournies par dummyjson.com</string>

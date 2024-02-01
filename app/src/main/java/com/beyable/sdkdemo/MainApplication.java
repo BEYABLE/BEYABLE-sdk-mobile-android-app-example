@@ -15,7 +15,6 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-
         // Init of Beyable SDK
         // Clef prod
         String prodKey = "aaaaaaaaa02a395426f4846fe8f7c478d6dc9c444";

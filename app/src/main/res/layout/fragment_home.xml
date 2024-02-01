@@ -1,48 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_background"
     tools:context=".ui.home.HomeFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerInParent="true"
-        android:padding="@dimen/padding_xbig">
-        <TextView
-            android:id="@+id/text_home"
+        android:layout_height="match_parent"
+        android:background="@color/light_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:padding="@dimen/padding_xbig">
+            <TextView
+                android:id="@+id/text_home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:textAlignment="center"
+                android:textSize="32sp"
+                android:text="@string/home_welcome_message"
+                android:layout_marginBottom="@dimen/padding_big"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logo_beyable"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_small"
+                android:text="@string/home_welcome_desc"
+                android:textAlignment="center"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_default"
             android:textAlignment="center"
-            android:textSize="32sp"
-            android:text="@string/home_welcome_message"
-            android:layout_marginBottom="@dimen/padding_big"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logo_beyable"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size_default"
-            android:text="@string/home_welcome_desc"
-            android:textAlignment="center"/>
-    </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/padding_default"
-        android:textAlignment="center"
-        android:text="@string/home_copyrights"
-        android:textStyle="italic"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="72dp"/>
-</RelativeLayout>
+            android:text="@string/home_copyrights"
+            android:textStyle="italic"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="72dp"/>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

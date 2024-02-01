@@ -29,6 +29,7 @@
         <activity android:name=".ui.category.CategoryActivity"/>
         <activity android:name=".ui.products.ProductsActivity"/>
         <activity android:name=".ui.product.ProductActivity"/>
+        <activity android:name=".ui.cart.CartActivity"/>
     </application>
 
 </manifest>

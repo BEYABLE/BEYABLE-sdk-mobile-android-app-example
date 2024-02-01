@@ -1,0 +1,6 @@
+developmentAppKey = Your Development App Key
+productionAppKey = Your Production App Key
+
+# LogLevel is "VERBOSE", "DEBUG", "INFO", "WARN", "ERROR" or "ASSERT"
+developmentLogLevel = DEBUG
+productionLogLevel = ERROR

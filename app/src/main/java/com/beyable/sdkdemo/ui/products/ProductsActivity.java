@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.beyable.beyable_sdk.Beyable;
 import com.beyable.beyable_sdk.models.BYPage;
+import com.beyable.sdkdemo.R;
 import com.beyable.sdkdemo.databinding.ActivityMainBinding;
 
 /**
@@ -25,6 +26,10 @@ public class ProductsActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setLogo(R.drawable.logo_beyable_small);
+        }
 
         sendPageViewToBeyable();
     }

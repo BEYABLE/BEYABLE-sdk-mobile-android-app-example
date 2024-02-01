@@ -1,6 +1,9 @@
 package com.beyable.sdkdemo;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -9,6 +12,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.beyable.sdkdemo.databinding.ActivityMainBinding;
+import com.beyable.sdkdemo.ui.cart.CartActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +32,29 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setLogo(R.drawable.logo_beyable_small);
+        }
+    }
+
+
+    // Menu icons are inflated just as they were with actionbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.toolbar_nav_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.navigation_cart) {
+            Intent cartIntent = new Intent(this, CartActivity.class);
+            startActivity(cartIntent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 

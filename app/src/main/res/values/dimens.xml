@@ -11,6 +11,8 @@
     <dimen name="padding_xxxbig">32dp</dimen>
 
     <!-- DEFAULT TEXT SIZES -->
+    <dimen name="text_size_xsmall">10sp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
     <dimen name="text_size_default">18sp</dimen>
     <dimen name="text_size_big">22sp</dimen>
     <dimen name="text_size_xbig">28sp</dimen>
@@ -18,5 +20,6 @@
     <dimen name="text_size_xxxbig">64sp</dimen>
 
     <dimen name="product_list_thumbnail_size">148dp</dimen>
+    <dimen name="product_details_image_height">296dp</dimen>
 
 </resources>
