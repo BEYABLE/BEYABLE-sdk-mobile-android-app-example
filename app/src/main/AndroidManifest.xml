@@ -29,7 +29,18 @@
         <activity android:name=".ui.category.CategoryActivity"/>
         <activity android:name=".ui.products.ProductsActivity"/>
         <activity android:name=".ui.product.ProductActivity"/>
-        <activity android:name=".ui.cart.CartActivity"/>
+        <activity android:name=".ui.cart.CartActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "beyabledemo://cart” -->
+                <data android:scheme="beyabledemo" android:host="cart" />
+            </intent-filter>
+        </activity>
+
+
     </application>
 
 </manifest>
