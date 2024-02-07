@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.beyable.beyable_sdk.Beyable;
-import com.beyable.beyable_sdk.models.BYPage;
+import com.beyable.beyable_sdk.models.BYProductAttributes;
 import com.beyable.sdkdemo.R;
 import com.beyable.sdkdemo.databinding.ActivityProductBinding;
 import com.beyable.sdkdemo.models.Product;
@@ -53,11 +53,18 @@ public class ProductActivity extends AppCompatActivity {
 
 
     private void sendPageViewToBeyable() {
-        // CALL Beyable SDK to inform that we are viewing the home page
-        Beyable.getSharedInstance().sendPageView(this, new BYPage(
-                BYPage.BYPageType.PRODUCT,
-                "https://dummy_app.com",
-                "/"
-        ));
+        // CALL Beyable SDK to inform that we are viewing a product page
+        BYProductAttributes attributes = new BYProductAttributes();
+        attributes.setReference(product.getId());
+        attributes.setName(product.getTitle());
+        attributes.setStock(product.getStock());
+        attributes.setSellingPrice(product.getPrice());
+        attributes.setThumbnailUrl(product.getThumbnail());
+        attributes.setPriceBeforeDiscount(product.getDiscountPercentage());
+        attributes.setTags(new String[]{
+                product.getCategory(),
+                product.getBrand()
+        });
+        Beyable.getSharedInstance().sendPageView(this, "product/"+product.getTitle(), attributes);
     }
 }

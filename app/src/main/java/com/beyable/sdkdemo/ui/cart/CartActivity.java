@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.beyable.beyable_sdk.Beyable;
-import com.beyable.beyable_sdk.models.BYPage;
+import com.beyable.beyable_sdk.models.BYCartAttributes;
 import com.beyable.sdkdemo.R;
 import com.beyable.sdkdemo.databinding.ActivityCartBinding;
 
@@ -44,10 +44,8 @@ public class CartActivity extends AppCompatActivity {
         return true;
     }
 
-
     private void sendPageViewToBeyable() {
-        // CALL Beyable SDK to inform that we are viewing the home page
-        BYPage page = new BYPage(BYPage.BYPageType.CART, "https://beyable.demo", "cart/");
-        Beyable.getSharedInstance().sendPageView(this, page);
+        BYCartAttributes cartAttributes = new BYCartAttributes();
+        Beyable.getSharedInstance().sendPageView(this, "cart/", cartAttributes);
     }
 }

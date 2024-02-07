@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.beyable.beyable_sdk.Beyable;
-import com.beyable.beyable_sdk.models.BYPage;
+import com.beyable.beyable_sdk.models.BYGenericAttributes;
 import com.beyable.sdkdemo.R;
 import com.beyable.sdkdemo.databinding.FragmentCategoriesBinding;
 import com.beyable.sdkdemo.models.Category;
@@ -125,11 +125,8 @@ public class CategoriesFragment extends Fragment {
 
     private void sendPageViewToBeyable(View view) {
         // CALL Beyable SDK to inform that we are viewing the home page
-        Beyable.getSharedInstance().sendPageView(view, new BYPage(
-                BYPage.BYPageType.HOME,
-                "https://dummy_app.com",
-                "/"
-        ));
+        BYGenericAttributes attributes = new BYGenericAttributes();
+        Beyable.getSharedInstance().sendPageView(getActivity(), "categories/", attributes);
     }
 }
 

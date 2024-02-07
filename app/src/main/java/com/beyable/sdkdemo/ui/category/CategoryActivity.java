@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.beyable.beyable_sdk.Beyable;
-import com.beyable.beyable_sdk.models.BYPage;
+import com.beyable.beyable_sdk.models.BYCategoryAttributes;
 import com.beyable.sdkdemo.R;
 import com.beyable.sdkdemo.databinding.ActivityCategoryBinding;
 import com.beyable.sdkdemo.models.Category;
@@ -51,12 +51,10 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
     private void sendPageViewToBeyable() {
-        // CALL Beyable SDK to inform that we are viewing the home page
-        Beyable.getSharedInstance().sendPageView(this, new BYPage(
-                BYPage.BYPageType.CATEGORY,
-                "https://dummy_app.com",
-                "/"
-        ));
+        BYCategoryAttributes attributes = new BYCategoryAttributes();
+        attributes.setName(category.getTitle());
+        attributes.setTags(new String[]{category.getCategory()});
+        Beyable.getSharedInstance().sendPageView(this, "category/"+category.getCategory(), attributes);
     }
 
 }

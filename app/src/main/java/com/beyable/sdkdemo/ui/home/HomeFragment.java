@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.beyable.beyable_sdk.Beyable;
-import com.beyable.beyable_sdk.models.BYPage;
+import com.beyable.beyable_sdk.models.BYHomeAttributes;
 import com.beyable.sdkdemo.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -37,8 +37,8 @@ public class HomeFragment extends Fragment {
 
     private void sendPageViewToBeyable(View rootView) {
         // CALL Beyable SDK to inform that we are viewing the home page
-        BYPage page = new BYPage(BYPage.BYPageType.HOME, "https://beyable.demo", "");
-        Beyable.getSharedInstance().sendPageView(rootView, page);
+        BYHomeAttributes attributes = new BYHomeAttributes();
+        Beyable.getSharedInstance().sendPageView(getActivity(), "/", attributes);
     }
 
 }
