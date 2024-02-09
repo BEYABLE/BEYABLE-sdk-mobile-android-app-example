@@ -11,7 +11,7 @@ import com.beyable.sdkdemo.databinding.ActivityCartBinding;
 
 
 /**
- * Created by MarKinho on 29/01/2024.
+ * Created by Gol D. Marko on 29/01/2024.
  * <p>
  **/
 

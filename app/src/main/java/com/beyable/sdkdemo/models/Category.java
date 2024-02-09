@@ -3,7 +3,7 @@ package com.beyable.sdkdemo.models;
 import java.io.Serializable;
 
 /**
- * Created by MarKinho on 29/01/2024.
+ * Created by Gol D. Marko on 29/01/2024.
  * <p>
  * TiVine Technologies
  * All rights reserved

@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by MarKinho on 26/01/2024.
+ * Created by Gol D. Marko on 26/01/2024.
  * <p>
  * Wisepear Techlab
  * All rights reserved

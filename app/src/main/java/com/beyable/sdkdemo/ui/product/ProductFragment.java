@@ -14,6 +14,7 @@ import com.beyable.sdkdemo.R;
 import com.beyable.sdkdemo.databinding.FragmentProductBinding;
 import com.beyable.sdkdemo.models.Product;
 import com.beyable.sdkdemo.ui.adapters.CarouselImageAdapter;
+import com.beyable.sdkdemo.utils.Cart;
 
 import java.util.ArrayList;
 
@@ -38,7 +39,12 @@ public class ProductFragment extends Fragment {
         binding.titleView.setText(product.getTitle());
         binding.descriptionView.setText(product.getDescription());
         binding.priceView.setText(Double.toString(product.getPrice())+"€");
-
+        binding.addToCartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Cart.getSharedInstance().addProduct(product);
+            }
+        });
 
         return root;
     }

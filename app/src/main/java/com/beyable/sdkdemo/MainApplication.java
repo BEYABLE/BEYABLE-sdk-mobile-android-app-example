@@ -5,7 +5,7 @@ import android.app.Application;
 import com.beyable.beyable_sdk.Beyable;
 
 /**
- * Created by MarKinho on 31/01/2024.
+ * Created by Gol D. Marko on 31/01/2024.
  * <p>
  **/
 

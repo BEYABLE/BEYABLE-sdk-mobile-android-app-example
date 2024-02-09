@@ -12,7 +12,7 @@ import com.beyable.sdkdemo.models.Product;
 
 
 /**
- * Created by MarKinho on 29/01/2024.
+ * Created by Gol D. Marko on 29/01/2024.
  * <p>
  * Wisepear Techlab
  * All rights reserved
@@ -41,6 +41,7 @@ public class ProductActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setLogo(R.drawable.logo_beyable_small);
         }
+
 
         sendPageViewToBeyable();
     }

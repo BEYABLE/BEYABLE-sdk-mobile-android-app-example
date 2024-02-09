@@ -16,7 +16,7 @@ import com.beyable.sdkdemo.tools.Requester;
 import java.util.ArrayList;
 
 /**
- * Created by MarKinho on 31/01/2024.
+ * Created by Gol D. Marko on 31/01/2024.
  * <p>
  **/
 

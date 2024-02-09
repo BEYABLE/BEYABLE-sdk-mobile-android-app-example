@@ -16,17 +16,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/carousel_view"
+        <FrameLayout
+            android:id="@+id/carousel_container"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/product_details_image_height"
-            app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"/>
-
+            android:layout_height="wrap_content">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/carousel_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/product_details_image_height"
+                app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"/>
+        </FrameLayout>
         <ScrollView
             android:id="@+id/scroll_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/carousel_view"
+            android:layout_below="@id/carousel_container"
             android:layout_alignParentBottom="true">
             <LinearLayout
                 android:id="@+id/infos_container"
@@ -66,6 +70,7 @@
                     android:layout_marginTop="@dimen/padding_big"
                     android:layout_marginBottom="@dimen/padding_big"/>
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/addToCartButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"

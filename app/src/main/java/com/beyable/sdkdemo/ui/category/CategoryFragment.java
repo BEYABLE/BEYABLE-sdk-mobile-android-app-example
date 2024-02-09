@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Response;
@@ -59,8 +59,7 @@ public class CategoryFragment extends Fragment {
         // LinearLayoutManager is used here, this will layout the elements in a similar fashion
         // to the way ListView would layout elements. The RecyclerView.LayoutManager defines how
         // elements are laid out.
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // Make request to get all the categories
         progressBar.setVisibility(View.VISIBLE);

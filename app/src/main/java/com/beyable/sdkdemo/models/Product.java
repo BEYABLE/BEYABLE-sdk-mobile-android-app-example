@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Created by MarKinho on 29/01/2024.
+ * Created by Gol D. Marko on 29/01/2024.
  * <p>
  * Wisepear Techlab
  * All rights reserved
