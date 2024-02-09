@@ -10,6 +10,8 @@
     <string name="home_welcome_message">Bienvenue sur la démo du SDK mobile</string>
     <string name="home_welcome_desc">Données fournies par dummyjson.com</string>
     <string name="home_copyrights">Copyright 2024 BeYable</string>
+    <string name="home_login_button">Connecter utilisateur</string>
+    <string name="home_logout_button">Déconnecter utilisateur</string>
 
     <string name="product_add_cart">Ajouter au panier</string>
 </resources>

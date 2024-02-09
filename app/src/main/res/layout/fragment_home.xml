@@ -21,7 +21,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_centerInParent="true"
-            android:padding="@dimen/padding_xbig">
+            android:padding="@dimen/padding_xbig"
+            android:gravity="center">
             <TextView
                 android:id="@+id/text_home"
                 android:layout_width="match_parent"
@@ -43,6 +44,13 @@
                 android:textSize="@dimen/text_size_small"
                 android:text="@string/home_welcome_desc"
                 android:textAlignment="center"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/logButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/home_login_button"
+                android:textColor="@color/white"
+                android:layout_margin="@dimen/padding_xxbig"/>
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"
