@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.beyable.beyable_sdk.Beyable;
 import com.beyable.beyable_sdk.models.BYProductAttributes;
-import com.beyable.sdkdemo.R;
 import com.beyable.sdkdemo.databinding.ActivityProductBinding;
 import com.beyable.sdkdemo.models.Product;
 
@@ -28,20 +27,17 @@ public class ProductActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Get the data
         product = (Product) getIntent().getSerializableExtra(PRODUCT_INTENT_KEY);
-
+        // GEt the binding
         ActivityProductBinding binding = ActivityProductBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        // Update ActionBar
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(product.getTitle());
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setLogo(R.drawable.logo_beyable_small);
         }
-
 
         sendPageViewToBeyable();
     }

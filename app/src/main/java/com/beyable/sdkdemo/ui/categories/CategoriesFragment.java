@@ -126,7 +126,7 @@ public class CategoriesFragment extends Fragment {
     private void sendPageViewToBeyable(View view) {
         // CALL Beyable SDK to inform that we are viewing the home page
         BYGenericAttributes attributes = new BYGenericAttributes();
-        Beyable.getSharedInstance().sendPageView(getActivity(), "categories/", attributes);
+        Beyable.getSharedInstance().sendPageView(view, "categories/", attributes);
     }
 }
 

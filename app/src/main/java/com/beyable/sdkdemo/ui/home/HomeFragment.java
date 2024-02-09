@@ -61,7 +61,7 @@ public class HomeFragment extends Fragment {
     private void sendPageViewToBeyable(View rootView) {
         // CALL Beyable SDK to inform that we are viewing the home page
         BYHomeAttributes attributes = new BYHomeAttributes();
-        Beyable.getSharedInstance().sendPageView(getActivity(), "/", attributes);
+        Beyable.getSharedInstance().sendPageView(rootView, "/", attributes);
     }
 
     private void handleButtonText(Button button, boolean isLogged) {
