@@ -5,18 +5,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.beyable.sdkdemo.R;
+import com.beyable.beyable_sdk.Beyable;
+import com.beyable.beyable_sdk.models.BYCartItem;
+import com.beyable.beyable_sdk.models.BYProductAttributes;
 import com.beyable.sdkdemo.databinding.FragmentProductBinding;
 import com.beyable.sdkdemo.models.Product;
 import com.beyable.sdkdemo.ui.adapters.CarouselImageAdapter;
 import com.beyable.sdkdemo.utils.Cart;
-
-import java.util.ArrayList;
+import com.beyable.sdkdemo.utils.StringUtils;
 
 public class ProductFragment extends Fragment {
 
@@ -26,7 +29,6 @@ public class ProductFragment extends Fragment {
 
     private Product product;
     private RecyclerView carouselView;
-
     public View onCreateView(@NonNull LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProductBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -38,15 +40,26 @@ public class ProductFragment extends Fragment {
         setCarouselView();
         binding.titleView.setText(product.getTitle());
         binding.descriptionView.setText(product.getDescription());
-        binding.priceView.setText(Double.toString(product.getPrice())+"€");
+        binding.priceView.setText(StringUtils.doubleToPrice(product.getPrice(), '€'));
         binding.addToCartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Add to cart instance
                 Cart.getSharedInstance().addProduct(product);
+                // Prevent Beyable
+                sendCartItemToBeyable();
+                Toast.makeText(getContext(), "Produit ajouter au panier", Toast.LENGTH_SHORT).show();
             }
         });
 
         return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        // We call Beyable only after the view as been created
+        sendPageViewToBeyable();
     }
 
     @Override
@@ -55,71 +68,40 @@ public class ProductFragment extends Fragment {
         binding = null;
     }
 
+    private void sendPageViewToBeyable() {
+        // CALL Beyable SDK to inform that we are viewing a product page
+        BYProductAttributes attributes = new BYProductAttributes();
+        attributes.setReference(product.getId());
+        attributes.setName(product.getTitle());
+        attributes.setStock(product.getStock());
+        attributes.setSellingPrice(product.getPrice());
+        attributes.setThumbnailUrl(product.getThumbnail());
+        attributes.setPriceBeforeDiscount(product.getDiscountPercentage());
+        attributes.setTags(new String[]{
+                product.getCategory(),
+                product.getBrand()
+        });
+        Beyable.getSharedInstance().sendPageView(getView(), "product/"+product.getTitle(), attributes);
+    }
+
+    private void sendCartItemToBeyable() {
+        BYCartItem item = new BYCartItem(
+                product.getId(),
+                product.getTitle(),
+                "product/"+product.getTitle(),
+                product.getPrice(),
+                1,
+                product.getThumbnail(),
+                new String[]{product.getCategory(), product.getBrand()}
+        );
+        Beyable.getSharedInstance().addItemToCart(item);
+    }
+
 
     private void setCarouselView() {
         CarouselImageAdapter adapter = new CarouselImageAdapter(getContext(), product.getImages());
         carouselView.setAdapter(adapter);
     }
 
-}
-
-
-class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
-
-    private ArrayList<Object> dataSet;
-
-    /**
-     * Provide a reference to the type of views that you are using
-     * (custom ViewHolder)
-     */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView titleView;
-
-        public ViewHolder(View view) {
-            super(view);
-            // Define click listener for the ViewHolder's View
-            titleView = (TextView) view.findViewById(R.id.titleView);
-        }
-
-        public void setContent(Object object) {
-            if (object instanceof Product) {
-
-            }
-        }
-
-    }
-
-    /**
-     * Initialize the dataset of the Adapter
-     *
-     * @param dataSet ArrayList containing the data to populate views to be used
-     * by RecyclerView
-     */
-    public ProductAdapter(ArrayList<Object> dataSet) {
-        this.dataSet = dataSet;
-    }
-
-    // Create new views (invoked by the layout manager)
-    @NonNull @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        // Create a new view, which defines the UI of the list item
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.category_row_item, viewGroup, false);
-        return new ViewHolder(view);
-    }
-
-    // Replace the contents of a view (invoked by the layout manager)
-    @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
-        viewHolder.setContent(dataSet.get(position));
-
-    }
-
-    // Return the size of your dataset (invoked by the layout manager)
-    @Override
-    public int getItemCount() {
-        return dataSet.size();
-    }
 
 }

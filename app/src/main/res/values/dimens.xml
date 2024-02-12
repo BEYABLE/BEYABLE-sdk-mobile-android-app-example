@@ -21,5 +21,6 @@
 
     <dimen name="product_list_thumbnail_size">148dp</dimen>
     <dimen name="product_details_image_height">296dp</dimen>
+    <dimen name="cart_list_thumbnail_size">96dp</dimen>
 
 </resources>

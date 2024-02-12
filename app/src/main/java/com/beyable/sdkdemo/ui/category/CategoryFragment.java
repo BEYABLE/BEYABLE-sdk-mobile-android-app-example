@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.NetworkImageView;
+import com.beyable.beyable_sdk.Beyable;
+import com.beyable.beyable_sdk.models.BYCategoryAttributes;
 import com.beyable.sdkdemo.R;
 import com.beyable.sdkdemo.databinding.FragmentCategoryBinding;
 import com.beyable.sdkdemo.models.Category;
@@ -116,16 +118,30 @@ public class CategoryFragment extends Fragment {
                         recyclerView.setAdapter(categoriesAdapter);
                         // Hide the progress view
                         progressBar.setVisibility(View.GONE);
+
+                        // Prevent Beyable
+                        sendPageViewToBeyable();
                     }
                 });
             }
         });
     }
 
+
+
     private void onRequestError(String errorMessage) {
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
         progressBar.setVisibility(View.GONE);
     }
+
+
+    private void sendPageViewToBeyable() {
+        BYCategoryAttributes attributes = new BYCategoryAttributes();
+        attributes.setName(category.getTitle());
+        attributes.setTags(new String[]{category.getCategory()});
+        Beyable.getSharedInstance().sendPageView(getView(), "category/"+category.getCategory(), attributes);
+    }
+
 
 }
 

@@ -4,8 +4,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.beyable.beyable_sdk.Beyable;
-import com.beyable.beyable_sdk.models.BYCartAttributes;
 import com.beyable.sdkdemo.R;
 import com.beyable.sdkdemo.databinding.ActivityCartBinding;
 
@@ -35,7 +33,6 @@ public class CartActivity extends AppCompatActivity {
             getSupportActionBar().setLogo(R.drawable.logo_beyable_small);
         }
 
-        sendPageViewToBeyable();
     }
 
     @Override
@@ -44,8 +41,4 @@ public class CartActivity extends AppCompatActivity {
         return true;
     }
 
-    private void sendPageViewToBeyable() {
-        BYCartAttributes cartAttributes = new BYCartAttributes();
-        Beyable.getSharedInstance().sendPageView(this, "cart/", cartAttributes);
-    }
 }

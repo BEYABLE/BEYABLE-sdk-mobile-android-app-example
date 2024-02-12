@@ -37,20 +37,12 @@ public class CategoryActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        sendPageViewToBeyable();
     }
 
     @Override
     public boolean onSupportNavigateUp() {
         getOnBackPressedDispatcher().onBackPressed();
         return true;
-    }
-
-    private void sendPageViewToBeyable() {
-        BYCategoryAttributes attributes = new BYCategoryAttributes();
-        attributes.setName(category.getTitle());
-        attributes.setTags(new String[]{category.getCategory()});
-        Beyable.getSharedInstance().sendPageView(this, "category/"+category.getCategory(), attributes);
     }
 
 }

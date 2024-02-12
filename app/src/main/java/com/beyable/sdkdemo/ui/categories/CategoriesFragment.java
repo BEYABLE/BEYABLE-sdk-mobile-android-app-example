@@ -54,7 +54,6 @@ public class CategoriesFragment extends Fragment {
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
 
-
         // Make request to get all the categories
         progressBar.setVisibility(View.VISIBLE);
         Requester.getSharedInstance(root.getContext()).makeArrayGetRequest(
