@@ -1,6 +1,7 @@
 package com.beyable.sdkdemo.models;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
@@ -48,6 +49,21 @@ public class Product implements Serializable {
         }
     }
 
+    public JSONObject toJSONObject() throws JSONException {
+        return new JSONObject()
+                .put("id", id)
+                .put("title", title)
+                .put("description", description)
+                .put("price", price)
+                .put("discountPercentage", discountPercentage)
+                .put("rating", rating)
+                .put("stock", stock)
+                .put("brand", brand)
+                .put("category", category)
+                .put("thumbnail", thumbnail)
+                .put("images", getImagesArray());
+    }
+
     public String getId() {
         return id;
     }
@@ -90,5 +106,13 @@ public class Product implements Serializable {
 
     public ArrayList<String> getImages() {
         return images;
+    }
+
+    public JSONArray getImagesArray() {
+        JSONArray result = new JSONArray();
+        for (int i=0; i<images.size(); i++) {
+            result.put(images.get(i));
+        }
+        return result;
     }
 }

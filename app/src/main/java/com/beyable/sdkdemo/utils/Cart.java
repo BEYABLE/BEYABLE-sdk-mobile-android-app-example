@@ -1,10 +1,12 @@
 package com.beyable.sdkdemo.utils;
 
-import android.content.Context;
-
 import com.beyable.beyable_sdk.Beyable;
 import com.beyable.sdkdemo.models.CartItem;
 import com.beyable.sdkdemo.models.Product;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -25,6 +27,7 @@ public class Cart {
     }
 
     private ArrayList<CartItem> cartItems = new ArrayList<>();
+
 
     public void addProduct(Product product) {
         // Check if product is already there
@@ -82,7 +85,34 @@ public class Cart {
         return cartItems;
     }
 
-    public void eraseData(Context context) {
+    public void fromJSONObject(JSONObject data) {
+        cartItems = new ArrayList<>();
+        JSONArray items = data.optJSONArray("items");
+        if (items != null) {
+            for (int i=0; i < items.length(); i++) {
+                try {
+                    cartItems.add(new CartItem(items.getJSONObject(i)));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
+    public JSONObject toJSONObject() throws JSONException {
+        return new JSONObject()
+                .put("items", itemsToArray());
+    }
+
+    public JSONArray itemsToArray() throws JSONException {
+        JSONArray result = new JSONArray();
+        for (CartItem item : cartItems) {
+            result.put(item.toJSONObject());
+        }
+        return result;
+    }
+
+    public void eraseData() {
+        cartItems = new ArrayList<>();
     }
 }
