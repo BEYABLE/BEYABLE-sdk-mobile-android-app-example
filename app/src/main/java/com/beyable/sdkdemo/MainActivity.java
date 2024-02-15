@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(cartIntent);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

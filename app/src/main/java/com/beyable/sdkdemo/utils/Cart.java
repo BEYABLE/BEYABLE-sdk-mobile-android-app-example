@@ -1,5 +1,7 @@
 package com.beyable.sdkdemo.utils;
 
+import android.content.Context;
+
 import com.beyable.beyable_sdk.Beyable;
 import com.beyable.sdkdemo.models.CartItem;
 import com.beyable.sdkdemo.models.Product;
@@ -80,4 +82,7 @@ public class Cart {
         return cartItems;
     }
 
+    public void eraseData(Context context) {
+
+    }
 }
