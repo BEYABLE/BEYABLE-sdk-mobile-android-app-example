@@ -42,10 +42,10 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.7.7'
     // For making requests
     implementation 'com.android.volley:volley:1.2.1'
-    implementation files('libs/beyable-sdk-release.aar')
 
     // BeYable SDK
-    //implementation project(":sdk")
+    implementation files('libs/beyable-sdk-release.aar')
+
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
