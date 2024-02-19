@@ -43,8 +43,8 @@ public class CarouselImageAdapter extends RecyclerView.Adapter<CarouselImageAdap
         Requester.getSharedInstance(holder.itemView.getContext()).setImageForNetworkImageView(
                 holder.imageView,
                 arrayList.get(position),
-                R.drawable.logo_beyable,
-                R.drawable.logo_beyable);
+                R.drawable.img_placeholder,
+                R.drawable.img_placeholder);
     }
 
     @Override

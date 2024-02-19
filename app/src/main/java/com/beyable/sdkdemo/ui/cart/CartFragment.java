@@ -193,8 +193,8 @@ class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             Requester.getSharedInstance(itemView.getContext()).setImageForNetworkImageView(
                     imageView,
                     cartItem.getProduct().getThumbnail(),
-                    R.drawable.ic_dashboard_black_24dp,
-                    R.drawable.ic_notifications_black_24dp);
+                    R.drawable.img_placeholder,
+                    R.drawable.img_placeholder);
         }
 
         public void setListeners(View.OnClickListener removeProductListener, View.OnClickListener addQtyListener, View.OnClickListener removeQtyListener) {

@@ -15,6 +15,9 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
         // Init of Beyable SDK
-        Beyable.initInstance(getApplicationContext(), "aaaaaaaaa2703cf6e44624d9b81f15f14893d1d6a", null);
+        Beyable.initInstance(
+                getApplicationContext(),
+                "aaaaaaaaa2703cf6e44624d9b81f15f14893d1d6a",
+                null);
     }
 }

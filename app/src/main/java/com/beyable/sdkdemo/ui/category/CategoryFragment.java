@@ -170,8 +170,8 @@ class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
             Requester.getSharedInstance(itemView.getContext()).setImageForNetworkImageView(
                     networkImageView,
                     product.getThumbnail(),
-                    R.drawable.ic_dashboard_black_24dp,
-                    R.drawable.ic_notifications_black_24dp);
+                    R.drawable.img_placeholder,
+                    R.drawable.img_placeholder);
         }
 
     }
