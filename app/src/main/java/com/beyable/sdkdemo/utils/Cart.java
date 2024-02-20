@@ -47,7 +47,7 @@ public class Cart {
             if (cartItems.get(i).getProduct().getId().equals(cartItem.getProduct().getId())) {
                 cartItems.remove(i);
                 // Prevent Beyable SDK
-                Beyable.getSharedInstance().removeAllItemsFormCart(cartItem.getProduct().getId());
+                Beyable.getSharedInstance().removeAllItemsFromCart(cartItem.getProduct().getId());
                 return;
             }
         }

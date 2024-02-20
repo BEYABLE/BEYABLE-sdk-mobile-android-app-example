@@ -14,5 +14,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Beyable SDK Demo"
 include ':app'
-//include ':sdk'
-//project(':sdk').projectDir=new File('../beyable_sdk/sdk')
+
+// Si on veut importer le code source, il faut decommenter ces lignes
+include ':sdk'
+project(':sdk').projectDir=new File('../beyable_sdk/sdk')

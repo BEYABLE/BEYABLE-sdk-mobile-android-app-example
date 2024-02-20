@@ -14,10 +14,10 @@ public class MainApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        // Init of Beyable SDK
-        Beyable.initInstance(
-                getApplicationContext(),
-                "aaaaaaaaa2703cf6e44624d9b81f15f14893d1d6a",
-                null);
+        // On initialise l'instance Beyable avec l'URL de preprod
+        Beyable.initInstance(getApplicationContext(), "aaaaaaaaa2703cf6e44624d9b81f15f14893d1d6a");
+        try {
+            Beyable.getSharedInstance().setBaseUrl("https://webapp-beyable-preprod.azurewebsites.net");
+        } catch (Exception e) { }
     }
 }

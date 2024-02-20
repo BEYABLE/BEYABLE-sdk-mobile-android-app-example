@@ -29,6 +29,7 @@ import com.beyable.sdkdemo.tools.Requester;
 import com.beyable.sdkdemo.ui.product.ProductActivity;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -139,8 +140,14 @@ public class CategoryFragment extends Fragment {
         BYCategoryAttributes attributes = new BYCategoryAttributes();
         attributes.setName(category.getTitle());
         attributes.setTags(new String[]{category.getCategory()});
+        try {
+            attributes.setContextData(new JSONObject()
+                    .put("magasin", "Carrefour Aulnay-sous-Bois")
+            );
+        } catch (JSONException e) { }
         Beyable.getSharedInstance().sendPageView(getView(), "category/"+category.getCategory(), attributes);
     }
+
 
 
 }

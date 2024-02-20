@@ -44,7 +44,11 @@ dependencies {
     implementation 'com.android.volley:volley:1.2.1'
 
     // BeYable SDK
-    implementation files('libs/beyable-sdk-release.aar')
+    // Importation par package
+    // implementation files('libs/beyable-sdk-release.aar')
+    // Importation par code source
+    implementation project(":sdk")
+
 
 
     testImplementation 'junit:junit:4.13.2'
