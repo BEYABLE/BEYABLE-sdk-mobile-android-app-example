@@ -17,4 +17,9 @@
         android:label="@string/title_categories"
         tools:layout="@layout/fragment_categories" />
 
+    <fragment
+        android:id="@+id/navigation_cart"
+        android:name="com.beyable.sdkdemo.ui.cart.CartFragment"
+        android:label="@string/title_categories"
+        tools:layout="@layout/fragment_cart" />
 </navigation>

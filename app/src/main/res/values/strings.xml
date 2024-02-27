@@ -6,6 +6,7 @@
     <string name="title_category">Categorie</string>
     <string name="title_product">Produit</string>
     <string name="title_cart">Panier</string>
+    <string name="title_settings">Préférences</string>
 
     <string name="home_welcome_message">Bienvenue sur la démo du SDK mobile</string>
     <string name="home_welcome_desc">Données fournies par dummyjson.com</string>
@@ -14,4 +15,14 @@
     <string name="home_logout_button">Déconnecter utilisateur</string>
 
     <string name="product_add_cart">Ajouter au panier</string>
+
+    <string name="preferences_url_ws_title">URL et clef de l\'API Beyable</string>
+    <string name="preferences_url_title">Url :</string>
+    <string name="preferences_key_title">Clef :</string>
+    <string name="preferences_validate_changes">Valider les changements</string>
+    <string name="preferences_restart_app">Redémarrage de l\'application</string>
+    <string-array name="preferences_url_choices">
+        <item>Production</item>
+        <item>Dev</item>
+    </string-array>
 </resources>
