@@ -1,5 +1,7 @@
 package com.beyable.sdkdemo.models;
 
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -15,15 +17,17 @@ public class Category implements Serializable {
 
     final private String category;
     final private String title;
+    final private String url;
 
     /**
      * Construct a Category object with the data from server
      *
      * @param category the category
      */
-    public Category(String category) {
-        this.category   = category;
-        this.title      = category.substring(0, 1).toUpperCase() + category.substring(1);
+    public Category(JSONObject obj) {
+        this.category   = obj.optString("slug");
+        this.title      = obj.optString("name");
+        this.url        = obj.optString("url");
     }
 
     public String getTitle() {

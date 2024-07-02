@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.beyable.beyable_sdk.Beyable;
-import com.beyable.beyable_sdk.models.BYGenericAttributes;
+import com.beyable.beyable_sdk.models.BYCategoryAttributes;
 import com.beyable.sdkdemo.R;
 import com.beyable.sdkdemo.databinding.FragmentCategoriesBinding;
 import com.beyable.sdkdemo.models.Category;
@@ -28,6 +29,7 @@ import com.beyable.sdkdemo.tools.Requester;
 import com.beyable.sdkdemo.ui.category.CategoryActivity;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -89,13 +91,18 @@ public class CategoriesFragment extends Fragment {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
 
+        try {
+            Log.d(LOG_TAG, result.toString(4));
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
         executor.execute(new Runnable() {
             @Override
             public void run() {
                 //Background work here
                 ArrayList<Category> dataSet = new ArrayList<>();
                 for (int i=0; i < result.length(); i++) {
-                    dataSet.add(new Category(result.optString(i)));
+                    dataSet.add(new Category(result.optJSONObject(i)));
                 }
 
                 handler.post(new Runnable() {
@@ -124,7 +131,7 @@ public class CategoriesFragment extends Fragment {
 
     private void sendPageViewToBeyable(View view) {
         // CALL Beyable SDK to inform that we are viewing the home page
-        BYGenericAttributes attributes = new BYGenericAttributes();
+        BYCategoryAttributes attributes = new BYCategoryAttributes();
         Beyable.getSharedInstance().sendPageView(view, "categories/", attributes);
     }
 }
@@ -183,6 +190,9 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
                 categoryClicked(view, viewHolder.getAdapterPosition());
             }
         });
+
+        // Send viewholder to Beyable to be handled
+        Beyable.getSharedInstance().bindingViewHolder(viewHolder, dataSet.get(position).getTitle());
     }
 
     // Return the size of your dataset (invoked by the layout manager)

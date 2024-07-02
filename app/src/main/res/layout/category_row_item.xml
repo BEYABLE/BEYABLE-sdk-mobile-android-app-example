@@ -7,15 +7,21 @@
     android:layout_margin="@dimen/padding_default"
     android:layout_gravity="center">
 
-    <TextView
-        android:id="@+id/titleView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textColor="@color/black"
-        android:textAlignment="textStart"
-        android:paddingStart="@dimen/padding_big"
-        android:paddingEnd="@dimen/padding_big"
-        android:paddingTop="@dimen/padding_xxbig"
-        android:paddingBottom="@dimen/padding_xxbig"/>
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/titleView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:textAlignment="textStart"
+            android:paddingStart="@dimen/padding_big"
+            android:paddingEnd="@dimen/padding_big"
+            android:paddingTop="@dimen/padding_xxbig"
+            android:paddingBottom="@dimen/padding_xxbig"/>
+
+    </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
