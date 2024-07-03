@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
     android:layout_margin="@dimen/padding_default"
     android:layout_gravity="center">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/titleView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/titleView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textColor="@color/black"
-            android:textAlignment="textStart"
-            android:paddingStart="@dimen/padding_big"
-            android:paddingEnd="@dimen/padding_big"
-            android:paddingTop="@dimen/padding_xxbig"
-            android:paddingBottom="@dimen/padding_xxbig"/>
+        android:paddingStart="@dimen/padding_big"
+        android:paddingTop="@dimen/padding_xxbig"
+        android:paddingEnd="@dimen/padding_big"
+        android:paddingBottom="@dimen/padding_xxbig"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
