@@ -66,8 +66,45 @@ public class CategoryFragment extends Fragment {
 
         // Make request to get all the categories
         progressBar.setVisibility(View.VISIBLE);
+
+        // Prevent Beyable
+        sendPageViewToBeyable(root);
+
+        return root;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
+
+    private void sendPageViewToBeyable(View rootView) {
+        BYCategoryAttributes attributes = new BYCategoryAttributes();
+        attributes.setName(category.getTitle());
+        attributes.setTags(new String[]{category.getCategory()});
+        try {
+            attributes.setContextData(new JSONObject()
+                    .put("magasin", "Carrefour Aulnay-sous-Bois")
+            );
+        } catch (JSONException e) { }
+        Beyable.getSharedInstance().sendPageView(rootView, "category/" + category.getCategory(), attributes, new Beyable.OnSendPageView() {
+            @Override
+            public void onResponse() {
+                makeDataRequest();
+            }
+
+            @Override
+            public void onError() {
+                onRequestError("BEYABLE ERROR");
+            }
+        });
+    }
+
+    private void makeDataRequest() {
         String endpoint = Requester.CATEGORY_PAGE + category.getCategory();
-        Requester.getSharedInstance(root.getContext()).makeObjGetRequest(endpoint,
+        Requester.getSharedInstance(getContext()).makeObjGetRequest(endpoint,
                 new JSONObject(),
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -83,15 +120,6 @@ public class CategoryFragment extends Fragment {
                     }
                 }
         );
-
-
-        return root;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 
     private void onRequestDone(JSONObject result) {
@@ -119,9 +147,6 @@ public class CategoryFragment extends Fragment {
                         recyclerView.setAdapter(categoriesAdapter);
                         // Hide the progress view
                         progressBar.setVisibility(View.GONE);
-
-                        // Prevent Beyable
-                        sendPageViewToBeyable();
                     }
                 });
             }
@@ -134,21 +159,6 @@ public class CategoryFragment extends Fragment {
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
         progressBar.setVisibility(View.GONE);
     }
-
-
-    private void sendPageViewToBeyable() {
-        BYCategoryAttributes attributes = new BYCategoryAttributes();
-        attributes.setName(category.getTitle());
-        attributes.setTags(new String[]{category.getCategory()});
-        try {
-            attributes.setContextData(new JSONObject()
-                    .put("magasin", "Carrefour Aulnay-sous-Bois")
-            );
-        } catch (JSONException e) { }
-        Beyable.getSharedInstance().sendPageView(getView(), "category/"+category.getCategory(), attributes);
-    }
-
-
 
 }
 
@@ -168,8 +178,8 @@ class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
         public ViewHolder(View view) {
             super(view);
-            networkImageView = view.findViewById(R.id.network_image_view);
-            titleView = view.findViewById(R.id.title_text_view);
+            networkImageView = view.findViewById(R.id.product_image);
+            titleView = view.findViewById(R.id.product_content);
         }
 
         public void setContent(Product product) {
@@ -197,7 +207,7 @@ class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
     @NonNull @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.product_row_item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.product_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
@@ -213,6 +223,8 @@ class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
                 productClicked(view, viewHolder.getAdapterPosition());
             }
         });
+        // Send it to Beyable
+        Beyable.getSharedInstance().onBindingViewHolder(viewHolder, dataSet.get(position).getTitle());
     }
 
     // Return the size of your dataset (invoked by the layout manager)

@@ -24,10 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         // INIT Beyable SDK
         String[] s = PreferencesUtils.getUrlAndApiKey(this);
-        Beyable.initInstance(getApplicationContext(),s[1]);
-        try {
-            Beyable.getSharedInstance().setBaseUrl(s[0]);
-        } catch (Exception e) { }
+        Beyable.initInstance(getApplicationContext(), s[0], s[1]);
 
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_margin="@dimen/padding_default"
+    android:layout_gravity="center">
+
+    <!-- Image du produit -->
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/product_image"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:contentDescription="Image produit"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- Titre du produit -->
+    <TextView
+        android:id="@+id/product_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/product_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/product_description"
+        android:layout_marginEnd="8dp"
+        tools:text="Product Title" />
+    <!-- Descriptif du produit -->
+    <TextView
+        android:id="@+id/product_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/product_image"
+        app:layout_constraintTop_toBottomOf="@id/product_content"
+        tools:text="This is a short description of the product." />
+
+    <!-- Prix du produit -->
+    <TextView
+        android:id="@+id/product_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@android:color/holo_red_dark"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/product_description"
+        app:layout_constraintEnd_toStartOf="@id/product_image"
+        android:layout_marginTop="8dp"
+        tools:text="$99.99" />
+
+    <!-- Divider -->
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/product_image"
+        android:layout_marginTop="8dp" />
+
+
+    <!-- Bouton "Ajouter au panier" -->
+    <Button
+        android:id="@+id/add_to_cart_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="+ panier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        app:layout_constraintEnd_toStartOf="@id/view_details_button"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <!-- Bouton "Voir les détails" -->
+    <Button
+        android:id="@+id/view_details_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Voir Plus"
+        app:layout_constraintStart_toEndOf="@id/add_to_cart_button"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

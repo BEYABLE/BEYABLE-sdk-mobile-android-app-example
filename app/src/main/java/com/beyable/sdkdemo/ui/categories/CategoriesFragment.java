@@ -75,8 +75,6 @@ public class CategoriesFragment extends Fragment {
                     }
                 }
         );
-
-
         return root;
     }
 
@@ -110,11 +108,9 @@ public class CategoriesFragment extends Fragment {
                     public void run() {
                         // Set the recycler view with the data collected
                         CategoriesAdapter categoriesAdapter = new CategoriesAdapter(dataSet);
-
                         recyclerView.setAdapter(categoriesAdapter);
                         // Hide the progress view
                         progressBar.setVisibility(View.GONE);
-
                         sendPageViewToBeyable(getView());
                     }
                 });
@@ -126,7 +122,6 @@ public class CategoriesFragment extends Fragment {
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
         progressBar.setVisibility(View.GONE);
     }
-
 
 
     private void sendPageViewToBeyable(View view) {
@@ -151,7 +146,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
-            titleView = (TextView) view.findViewById(R.id.titleView);
+            titleView = (TextView) view.findViewById(R.id.title);
         }
 
         public void setContent(Category category) {
@@ -192,7 +187,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
         });
 
         // Send viewholder to Beyable to be handled
-        Beyable.getSharedInstance().bindingViewHolder(viewHolder, dataSet.get(position).getTitle());
+        Beyable.getSharedInstance().onBindingViewHolder(viewHolder, dataSet.get(position).getTitle());
     }
 
     // Return the size of your dataset (invoked by the layout manager)

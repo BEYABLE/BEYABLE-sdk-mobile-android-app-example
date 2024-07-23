@@ -6,23 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:layout_margin="@dimen/padding_default"
+    android:layout_margin="@dimen/padding_big"
     android:layout_gravity="center">
 
     <TextView
-        android:id="@+id/titleView"
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/padding_big"
-        android:paddingTop="@dimen/padding_xxbig"
-        android:paddingEnd="@dimen/padding_big"
-        android:paddingBottom="@dimen/padding_xxbig"
-        android:textAlignment="textStart"
+        style="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/black"
-        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingTop="@dimen/padding_big"
+        android:paddingBottom="@dimen/padding_big"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
