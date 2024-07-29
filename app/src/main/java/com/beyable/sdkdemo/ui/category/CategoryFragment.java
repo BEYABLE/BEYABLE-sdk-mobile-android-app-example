@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,16 +50,12 @@ public class CategoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCategoryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
         // Get the data from activity
         category = (Category) getActivity().getIntent().getSerializableExtra(CategoryActivity.CATEGORY_INTENT_KEY);
-
         // Init Views
         progressBar = binding.progressBar;
         recyclerView = binding.recyclerViewCategory;
         binding.categoryTitleView.setText(category.getTitle());
-
-
         // LinearLayoutManager is used here, this will layout the elements in a similar fashion
         // to the way ListView would layout elements. The RecyclerView.LayoutManager defines how
         // elements are laid out.
@@ -175,15 +172,21 @@ class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
         private final NetworkImageView networkImageView;
         private final TextView titleView;
+        private final TextView contentView;
+        private final TextView priceView;
 
         public ViewHolder(View view) {
             super(view);
             networkImageView = view.findViewById(R.id.product_image);
-            titleView = view.findViewById(R.id.product_content);
+            titleView = view.findViewById(R.id.product_title);
+            contentView = view.findViewById(R.id.product_content);
+            priceView = view.findViewById(R.id.product_price);
         }
 
         public void setContent(Product product) {
             titleView.setText(product.getTitle());
+            contentView.setText(product.getCategory());
+            priceView.setText(""+product.getPrice());
             Requester.getSharedInstance(itemView.getContext()).setImageForNetworkImageView(
                     networkImageView,
                     product.getThumbnail(),
@@ -224,7 +227,13 @@ class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
             }
         });
         // Send it to Beyable
-        Beyable.getSharedInstance().onBindingViewHolder(viewHolder, dataSet.get(position).getTitle());
+        Beyable.getSharedInstance().onBindingViewHolder(viewHolder, dataSet.get(position).getTitle(), new Beyable.OnCtaListener() {
+            @Override
+            public void onClick(String value) {
+                // Do stuffs
+                Log.d("CALLBACK", "CTA value callback clicked");
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)
