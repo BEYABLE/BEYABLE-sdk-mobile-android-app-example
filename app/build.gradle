@@ -59,6 +59,14 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.navigation:navigation-fragment:2.7.7'
     implementation 'androidx.navigation:navigation-ui:2.7.7'
+
+    implementation('com.google.code.gson:gson:2.10.1')
+    implementation('com.squareup.retrofit2:retrofit:2.9.0')
+    implementation('com.squareup.retrofit2:converter-gson:2.9.0')
+    implementation('com.squareup.retrofit2:converter-scalars:2.9.0')
+    implementation('com.squareup.okhttp3:logging-interceptor:4.9.0')
+
+
     // For making requests
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'androidx.compose.runtime:runtime-android:1.6.8'
@@ -75,8 +83,8 @@ dependencies {
     implementation "com.github.skydoves:landscapist-glide:2.3.6"
     // BeYable SDK
     // Importation par package
-    // implementation files('libs/beyable-sdk-release.aar')
+    implementation files('libs/beyable-sdk-release.aar')
     // Importation par code source
-    implementation project(":sdk")
+    // implementation project(":sdk")
 
 }
