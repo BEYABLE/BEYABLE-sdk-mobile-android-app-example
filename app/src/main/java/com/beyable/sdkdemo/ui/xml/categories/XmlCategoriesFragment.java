@@ -1,4 +1,4 @@
-package com.beyable.sdkdemo.ui.categories;
+package com.beyable.sdkdemo.ui.xml.categories;
 
 import android.content.Context;
 import android.content.Intent;
@@ -26,7 +26,7 @@ import com.beyable.sdkdemo.R;
 import com.beyable.sdkdemo.databinding.FragmentCategoriesBinding;
 import com.beyable.sdkdemo.models.Category;
 import com.beyable.sdkdemo.tools.Requester;
-import com.beyable.sdkdemo.ui.category.CategoryActivity;
+import com.beyable.sdkdemo.ui.xml.category.XmlCategoryActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,9 +35,9 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class CategoriesFragment extends Fragment {
+public class XmlCategoriesFragment extends Fragment {
 
-    protected final static String LOG_TAG = CategoriesFragment.class.getSimpleName();
+    protected final static String LOG_TAG = XmlCategoriesFragment.class.getSimpleName();
 
     private FragmentCategoriesBinding binding;
 
@@ -45,7 +45,7 @@ public class CategoriesFragment extends Fragment {
     private RecyclerView recyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
-        CategoriesViewModel categoriesViewModel = new ViewModelProvider(this).get(CategoriesViewModel.class);
+        XmlCategoriesViewModel categoriesViewModel = new ViewModelProvider(this).get(XmlCategoriesViewModel.class);
 
         binding = FragmentCategoriesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -107,7 +107,7 @@ public class CategoriesFragment extends Fragment {
                     @Override
                     public void run() {
                         // Set the recycler view with the data collected
-                        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(dataSet);
+                        XmlCategoriesAdapter categoriesAdapter = new XmlCategoriesAdapter(dataSet);
                         recyclerView.setAdapter(categoriesAdapter);
                         // Hide the progress view
                         progressBar.setVisibility(View.GONE);
@@ -127,12 +127,12 @@ public class CategoriesFragment extends Fragment {
     private void sendPageViewToBeyable(View view) {
         // CALL Beyable SDK to inform that we are viewing the home page
         BYCategoryAttributes attributes = new BYCategoryAttributes();
-        Beyable.getSharedInstance().sendPageView(view, "categories/", attributes);
+        Beyable.getSharedInstance().sendPageView(view, "xml_categories/", attributes);
     }
 }
 
 
-class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder> {
+class XmlCategoriesAdapter extends RecyclerView.Adapter<XmlCategoriesAdapter.ViewHolder> {
 
     private ArrayList<Category> dataSet;
 
@@ -161,7 +161,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
      * @param dataSet ArrayList containing the data to populate views to be used
      * by RecyclerView
      */
-    public CategoriesAdapter(ArrayList<Category> dataSet) {
+    public XmlCategoriesAdapter(ArrayList<Category> dataSet) {
         this.dataSet = dataSet;
     }
 
@@ -200,8 +200,8 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
         // Launch the category activity
         Context context = view.getContext();
         Category category = dataSet.get(position);
-        Intent intent = new Intent(context, CategoryActivity.class);
-        intent.putExtra(CategoryActivity.CATEGORY_INTENT_KEY, category);
+        Intent intent = new Intent(context, XmlCategoryActivity.class);
+        intent.putExtra(XmlCategoryActivity.CATEGORY_INTENT_KEY, category);
         context.startActivity(intent);
     }
 }

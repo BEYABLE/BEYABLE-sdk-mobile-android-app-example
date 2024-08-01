@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Beyable SDK Demo</string>
     <string name="title_home">Accueil</string>
-    <string name="title_categories">Categories</string>
+    <string name="title_nav_xml">XML</string>
+    <string name="title_nav_compose">Compose</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_category">Categorie</string>
     <string name="title_product">Produit</string>

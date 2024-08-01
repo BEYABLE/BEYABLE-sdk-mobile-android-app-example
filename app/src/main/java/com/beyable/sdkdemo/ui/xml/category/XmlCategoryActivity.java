@@ -1,4 +1,4 @@
-package com.beyable.sdkdemo.ui.category;
+package com.beyable.sdkdemo.ui.xml.category;
 
 import android.os.Bundle;
 
@@ -14,7 +14,7 @@ import com.beyable.sdkdemo.models.Category;
  * All rights reserved
  **/
 
-public class CategoryActivity extends AppCompatActivity {
+public class XmlCategoryActivity extends AppCompatActivity {
 
     public final static String CATEGORY_INTENT_KEY = "category_activity.category";
 

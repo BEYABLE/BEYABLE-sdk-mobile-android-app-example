@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -81,7 +80,7 @@ public class ProductFragment extends Fragment {
                 product.getCategory(),
                 product.getBrand()
         });
-        Beyable.getSharedInstance().sendPageView(getView(), "product/"+product.getTitle(), attributes);
+        Beyable.getSharedInstance().sendPageView(getView(), "xml_product/"+product.getTitle(), attributes);
     }
 
     private void sendCartItemToBeyable() {

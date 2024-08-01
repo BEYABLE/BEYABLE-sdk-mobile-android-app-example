@@ -18,7 +18,7 @@
         app:title="@string/title_category"/>
 
     <fragment
-        android:name="com.beyable.sdkdemo.ui.category.CategoryFragment"
+        android:name="com.beyable.sdkdemo.ui.xml.category.XmlCategoryFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="@id/toolbar"

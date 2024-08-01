@@ -7,9 +7,14 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_categories"
+        android:id="@+id/navigation_xml"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_categories" />
+        android:title="@string/title_nav_xml" />
+
+    <item
+        android:id="@+id/navigation_compose"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/title_nav_compose" />
 
     <item
         android:id="@+id/navigation_cart"

@@ -26,7 +26,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.category.CategoryActivity"/>
+        <activity android:name=".ui.xml.category.XmlCategoryActivity"/>
+        <activity android:name=".ui.compose.category.ComposeCategoryActivity"/>
+
         <activity android:name=".ui.product.ProductActivity"/>
         <activity android:name=".ui.cart.CartActivity"
             android:exported="true">

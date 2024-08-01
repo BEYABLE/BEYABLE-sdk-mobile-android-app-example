@@ -1,4 +1,4 @@
-package com.beyable.sdkdemo.ui.category;
+package com.beyable.sdkdemo.ui.xml.category;
 
 import android.content.Context;
 import android.content.Intent;
@@ -37,9 +37,9 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class CategoryFragment extends Fragment {
+public class XmlCategoryFragment extends Fragment {
 
-    protected final static String LOG_TAG = CategoryFragment.class.getSimpleName();
+    protected final static String LOG_TAG = XmlCategoryFragment.class.getSimpleName();
 
     private FragmentCategoryBinding binding;
 
@@ -51,7 +51,7 @@ public class CategoryFragment extends Fragment {
         binding = FragmentCategoryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         // Get the data from activity
-        category = (Category) getActivity().getIntent().getSerializableExtra(CategoryActivity.CATEGORY_INTENT_KEY);
+        category = (Category) getActivity().getIntent().getSerializableExtra(XmlCategoryActivity.CATEGORY_INTENT_KEY);
         // Init Views
         progressBar = binding.progressBar;
         recyclerView = binding.recyclerViewCategory;
@@ -86,7 +86,7 @@ public class CategoryFragment extends Fragment {
                     .put("magasin", "Carrefour Aulnay-sous-Bois")
             );
         } catch (JSONException e) { }
-        Beyable.getSharedInstance().sendPageView(rootView, "category/" + category.getCategory(), attributes, new Beyable.OnSendPageView() {
+        Beyable.getSharedInstance().sendPageView(rootView, "xml_category/" + category.getCategory(), attributes, new Beyable.OnSendPageView() {
             @Override
             public void onResponse() {
                 makeDataRequest();
@@ -140,7 +140,7 @@ public class CategoryFragment extends Fragment {
                     @Override
                     public void run() {
                         // Set the recycler view with the data collected
-                        CategoryAdapter categoriesAdapter = new CategoryAdapter(dataSet);
+                        XmlCategoryAdapter categoriesAdapter = new XmlCategoryAdapter(dataSet);
                         recyclerView.setAdapter(categoriesAdapter);
                         // Hide the progress view
                         progressBar.setVisibility(View.GONE);
@@ -160,7 +160,7 @@ public class CategoryFragment extends Fragment {
 }
 
 
-class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
+class XmlCategoryAdapter extends RecyclerView.Adapter<XmlCategoryAdapter.ViewHolder> {
 
     private ArrayList<Product> dataSet;
 
@@ -202,7 +202,7 @@ class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
      * @param dataSet ArrayList containing the data to populate views to be used
      * by RecyclerView
      */
-    public CategoryAdapter(ArrayList<Product> dataSet) {
+    public XmlCategoryAdapter(ArrayList<Product> dataSet) {
         this.dataSet = dataSet;
     }
 

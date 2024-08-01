@@ -12,14 +12,20 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_categories"
-        android:name="com.beyable.sdkdemo.ui.categories.CategoriesFragment"
-        android:label="@string/title_categories"
+        android:id="@+id/navigation_xml"
+        android:name="com.beyable.sdkdemo.ui.xml.categories.XmlCategoriesFragment"
+        android:label="@string/title_nav_xml"
+        tools:layout="@layout/fragment_categories" />
+
+    <fragment
+        android:id="@+id/navigation_compose"
+        android:name="com.beyable.sdkdemo.ui.compose.categories.ComposeCategoriesFragment"
+        android:label="@string/title_nav_compose"
         tools:layout="@layout/fragment_categories" />
 
     <fragment
         android:id="@+id/navigation_cart"
         android:name="com.beyable.sdkdemo.ui.cart.CartFragment"
-        android:label="@string/title_categories"
+        android:label="@string/title_cart"
         tools:layout="@layout/fragment_cart" />
 </navigation>

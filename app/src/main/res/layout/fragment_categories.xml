@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.categories.CategoriesFragment">
+    tools:context=".ui.xml.categories.XmlCategoriesFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
             android:paddingStart="@dimen/padding_big"
             android:paddingEnd="@dimen/padding_big"
             android:paddingBottom="@dimen/padding_big"
-            android:text="@string/title_categories"
+            android:text="@string/title_nav_xml"
             android:textColor="@color/black"
             android:layout_alignParentTop="true"/>
 
