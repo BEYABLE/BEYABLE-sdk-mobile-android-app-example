@@ -166,8 +166,8 @@ fun ProductRow(product: Product, onClick: () -> Unit) {
                     overflow = TextOverflow.Ellipsis,
                     color = Color.Black
                 )
-                BYInCollectionPlaceHolder(placeHolderId = "product_content", elementId = product.title, callback = Beyable.OnCtaListener {
-                    Log.d("CTA", "Value $it clicked");
+                BYInCollectionPlaceHolder(placeHolderId = "product_content", elementId = product.title, callback = { elementId, placeHolderId ->
+
                 })
                 Text(
                     text = product.category,
@@ -181,8 +181,8 @@ fun ProductRow(product: Product, onClick: () -> Unit) {
                     style = MaterialTheme.typography.bodyLarge, // Smaller font size for the price
                     color = MaterialTheme.colorScheme.primary // Highlighting the price
                 )
-                BYInCollectionPlaceHolder(placeHolderId = "product_price", elementId = product.title, callback = Beyable.OnCtaListener {
-                    Log.d("CTA", "Value $it clicked");
+                BYInCollectionPlaceHolder(placeHolderId = "product_price", elementId = product.title, callback = { elementId, placeHolderId ->
+
                 })
             }
         }

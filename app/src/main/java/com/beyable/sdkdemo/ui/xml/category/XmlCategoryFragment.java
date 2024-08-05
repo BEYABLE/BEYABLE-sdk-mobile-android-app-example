@@ -229,7 +229,7 @@ class XmlCategoryAdapter extends RecyclerView.Adapter<XmlCategoryAdapter.ViewHol
         // Send it to Beyable
         Beyable.getSharedInstance().onBindingViewHolder(viewHolder, dataSet.get(position).getTitle(), new Beyable.OnCtaListener() {
             @Override
-            public void onClick(String value) {
+            public void onClick(String elementId, String value) {
                 // Do stuffs
                 Log.d("CALLBACK", "CTA value callback clicked");
             }
