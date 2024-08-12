@@ -14,11 +14,15 @@ import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
@@ -26,6 +30,7 @@ import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.beyable.beyable_sdk.Beyable
 import com.beyable.beyable_sdk.models.BYCategoryAttributes
+import com.beyable.sdkdemo.R
 import com.beyable.sdkdemo.models.Category
 import com.beyable.sdkdemo.tools.Requester
 import com.beyable.sdkdemo.ui.compose.category.ComposeCategoryActivity
@@ -61,8 +66,26 @@ fun CategoriesScreen(viewModel: CategoriesViewModel) {
     }
 
     Scaffold(
+        topBar = {
+            Text(
+                text = "Jetpack Compose",
+                style = MaterialTheme.typography.headlineLarge,
+                color = Color.Black,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        start   = dimensionResource(id = R.dimen.padding_big),
+                        end     = dimensionResource(id = R.dimen.padding_big),
+                        top     = dimensionResource(id = R.dimen.padding_xxbig),
+                        bottom  = dimensionResource(id = R.dimen.padding_big)
+                    )
+            )
+        },
         content = { padding ->
-            Box(modifier = Modifier.padding(padding)) {
+            Box(modifier = Modifier
+                .fillMaxSize() // Pour remplir toute la taille de l'écran
+                .padding(padding)
+            ) {
                 if (state.value.isLoading) {
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                 } else {
@@ -84,6 +107,7 @@ fun CategoriesScreen(viewModel: CategoriesViewModel) {
 @Composable
 fun CategoryRow(category: Category, onClick: () -> Unit) {
     Card(
+        elevation = 0.dp,
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp)
@@ -91,6 +115,7 @@ fun CategoryRow(category: Category, onClick: () -> Unit) {
     ) {
         Text(
             text = category.title,
+            fontSize = 22.sp,
             modifier = Modifier.padding(16.dp)
         )
     }
@@ -103,6 +128,10 @@ data class CategoriesState(
 
 class CategoriesViewModel : ViewModel() {
 
+    companion object {
+        private const val LOG_TAG = "ComposeCategoriesVM"
+    }
+
     private val _state = MutableStateFlow(CategoriesState())
     public val state: StateFlow<CategoriesState> = _state
 
@@ -111,10 +140,10 @@ class CategoriesViewModel : ViewModel() {
         Requester.getSharedInstance(context).makeArrayGetRequest(
             Requester.CATEGORIES_PAGE,
             JSONArray(),
-            Response.Listener<JSONArray> { response ->
+            { response ->
                 onRequestDone(response)
             },
-            Response.ErrorListener { error ->
+            { error ->
                 onRequestError(context, error)
             }
         )
@@ -153,7 +182,4 @@ class CategoriesViewModel : ViewModel() {
         context.startActivity(intent)
     }
 
-    companion object {
-        private const val LOG_TAG = "ComposeCategoriesViewModel"
-    }
 }

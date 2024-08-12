@@ -46,6 +46,7 @@ public class XmlCategoryFragment extends Fragment {
     private Category category;
     private View progressBar;
     private RecyclerView recyclerView;
+    private String pagePath;
 
     public View onCreateView(@NonNull LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCategoryBinding.inflate(inflater, container, false);
@@ -63,6 +64,7 @@ public class XmlCategoryFragment extends Fragment {
 
         // Make request to get all the categories
         progressBar.setVisibility(View.VISIBLE);
+        pagePath = "xml_category/" + category.getCategory();
 
         // Prevent Beyable
         sendPageViewToBeyable(root);
@@ -86,7 +88,7 @@ public class XmlCategoryFragment extends Fragment {
                     .put("magasin", "Carrefour Aulnay-sous-Bois")
             );
         } catch (JSONException e) { }
-        Beyable.getSharedInstance().sendPageView(rootView, "xml_category/" + category.getCategory(), attributes, new Beyable.OnSendPageView() {
+        Beyable.getSharedInstance().sendPageView(rootView, pagePath, attributes, new Beyable.OnSendPageView() {
             @Override
             public void onResponse() {
                 makeDataRequest();
@@ -140,7 +142,7 @@ public class XmlCategoryFragment extends Fragment {
                     @Override
                     public void run() {
                         // Set the recycler view with the data collected
-                        XmlCategoryAdapter categoriesAdapter = new XmlCategoryAdapter(dataSet);
+                        XmlCategoryAdapter categoriesAdapter = new XmlCategoryAdapter(dataSet, pagePath);
                         recyclerView.setAdapter(categoriesAdapter);
                         // Hide the progress view
                         progressBar.setVisibility(View.GONE);
@@ -163,6 +165,7 @@ public class XmlCategoryFragment extends Fragment {
 class XmlCategoryAdapter extends RecyclerView.Adapter<XmlCategoryAdapter.ViewHolder> {
 
     private ArrayList<Product> dataSet;
+    private String pagePath;
 
     /**
      * Provide a reference to the type of views that you are using
@@ -202,8 +205,9 @@ class XmlCategoryAdapter extends RecyclerView.Adapter<XmlCategoryAdapter.ViewHol
      * @param dataSet ArrayList containing the data to populate views to be used
      * by RecyclerView
      */
-    public XmlCategoryAdapter(ArrayList<Product> dataSet) {
+    public XmlCategoryAdapter(ArrayList<Product> dataSet, String pagePath) {
         this.dataSet = dataSet;
+        this.pagePath = pagePath;
     }
 
     // Create new views (invoked by the layout manager)
@@ -227,7 +231,7 @@ class XmlCategoryAdapter extends RecyclerView.Adapter<XmlCategoryAdapter.ViewHol
             }
         });
         // Send it to Beyable
-        Beyable.getSharedInstance().onBindingViewHolder(viewHolder, dataSet.get(position).getTitle(), new Beyable.OnCtaListener() {
+        Beyable.getSharedInstance().onBindingViewHolder(pagePath, viewHolder, dataSet.get(position).getTitle(), new Beyable.OnCtaListener() {
             @Override
             public void onClick(String elementId, String value) {
                 // Do stuffs

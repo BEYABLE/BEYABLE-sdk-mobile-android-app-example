@@ -28,6 +28,7 @@
 
         <activity android:name=".ui.xml.category.XmlCategoryActivity"/>
         <activity android:name=".ui.compose.category.ComposeCategoryActivity"/>
+        <activity android:name=".ui.compose.category.ProductDetailActivity"/>
 
         <activity android:name=".ui.product.ProductActivity"/>
         <activity android:name=".ui.cart.CartActivity"

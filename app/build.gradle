@@ -95,7 +95,7 @@ dependencies {
 
     // BeYable SDK
     // Importation par package
-    implementation files('libs/beyable-sdk-release.aar')
+    //implementation files('libs/beyable-sdk-release.aar')
     // Importation par code source
-    // implementation project ':sdk'
+    implementation project(':sdk')
 }

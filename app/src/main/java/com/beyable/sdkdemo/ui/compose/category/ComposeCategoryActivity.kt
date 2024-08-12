@@ -1,6 +1,7 @@
 package com.beyable.sdkdemo.ui.compose.category
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.compose.setContent
@@ -99,15 +100,11 @@ fun CategoryScreen(category: Category, viewModel: CategoryViewModel = remember {
     // Display products
     LazyColumn {
         items(state.products) { product ->
-            ProductRow(product = product) {
-                // Handle product click
-                // Example: navigate to ProductDetail screen
-            }
+            ProductRow(product = product, LocalContext.current)
         }
     }
 
     LaunchedEffect(category) {
-
         val attributes = BYCategoryAttributes()
         attributes.name = category.title
         attributes.setTags(arrayOf(category.category))
@@ -118,7 +115,7 @@ fun CategoryScreen(category: Category, viewModel: CategoryViewModel = remember {
         }
         Beyable.getSharedInstance().sendPageView(
             context,
-            "xml_category/" + category.category,
+            "compose_category/",
             attributes,
             object : OnSendPageView {
                 override fun onResponse() {
@@ -133,12 +130,14 @@ fun CategoryScreen(category: Category, viewModel: CategoryViewModel = remember {
 }
 
 @Composable
-fun ProductRow(product: Product, onClick: () -> Unit) {
+fun ProductRow(product: Product, context: Context) {
     // Example UI for a product row
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick),
+            .clickable {
+                onProductClicked(context, product)
+            },
         colors = CardColors(contentColor = Color.Transparent, containerColor = Color.Transparent, disabledContainerColor = Color.Transparent, disabledContentColor = Color.Transparent)
     ) {
         Row(
@@ -166,7 +165,8 @@ fun ProductRow(product: Product, onClick: () -> Unit) {
                     overflow = TextOverflow.Ellipsis,
                     color = Color.Black
                 )
-                BYInCollectionPlaceHolder(placeHolderId = "product_content", elementId = product.title, callback = { elementId, placeHolderId ->
+                BYInCollectionPlaceHolder(path="compose_category/", placeHolderId = "product_title", elementId = product.title,
+                    callback = { elementId, placeHolderId ->
 
                 })
                 Text(
@@ -181,12 +181,19 @@ fun ProductRow(product: Product, onClick: () -> Unit) {
                     style = MaterialTheme.typography.bodyLarge, // Smaller font size for the price
                     color = MaterialTheme.colorScheme.primary // Highlighting the price
                 )
-                BYInCollectionPlaceHolder(placeHolderId = "product_price", elementId = product.title, callback = { elementId, placeHolderId ->
+                BYInCollectionPlaceHolder(path="compose_category/", placeHolderId = "product_price", elementId = product.title,
+                    callback = { elementId, placeHolderId ->
 
                 })
             }
         }
     }
+}
+
+fun onProductClicked(context: Context, product: Product) {
+    val intent = Intent(context, ProductDetailActivity::class.java)
+    intent.putExtra(ProductDetailActivity.PRODUCT_INTENT_KEY, product)
+    context.startActivity(intent)
 }
 
 class CategoryViewModel(private val category: Category) : ViewModel() {
@@ -229,6 +236,8 @@ class CategoryViewModel(private val category: Category) : ViewModel() {
         //Toast.makeText(LocalContext., errorMessage, Toast.LENGTH_LONG).show()
         _state.value = _state.value.copy(isLoading = false)
     }
+
+
 }
 
 data class CategoryState(

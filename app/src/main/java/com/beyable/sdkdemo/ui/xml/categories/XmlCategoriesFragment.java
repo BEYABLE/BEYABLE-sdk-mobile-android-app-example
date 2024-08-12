@@ -187,7 +187,7 @@ class XmlCategoriesAdapter extends RecyclerView.Adapter<XmlCategoriesAdapter.Vie
         });
 
         // Send viewholder to Beyable to be handled
-        Beyable.getSharedInstance().onBindingViewHolder(viewHolder, dataSet.get(position).getTitle(), new Beyable.OnCtaListener() {
+        Beyable.getSharedInstance().onBindingViewHolder("xml_category/", viewHolder, dataSet.get(position).getTitle(), new Beyable.OnCtaListener() {
             @Override
             public void onClick(String elementId, String plaeHolderId) {
 
