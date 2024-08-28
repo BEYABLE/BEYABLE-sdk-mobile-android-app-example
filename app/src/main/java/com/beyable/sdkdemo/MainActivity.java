@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         // INIT Beyable SDK
         String[] s = PreferencesUtils.getUrlAndApiKey(this);
-        Beyable.initInstanceWithAppVersionId(getApplicationContext(), s[0], s[1], "Android_XML_10000");
+        Beyable.initInstance(getApplicationContext(), s[0], s[1]);
 
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

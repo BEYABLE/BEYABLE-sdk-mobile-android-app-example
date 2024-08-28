@@ -10,10 +10,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardElevation
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -107,7 +108,6 @@ fun CategoriesScreen(viewModel: CategoriesViewModel) {
 @Composable
 fun CategoryRow(category: Category, onClick: () -> Unit) {
     Card(
-        elevation = 0.dp,
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp)

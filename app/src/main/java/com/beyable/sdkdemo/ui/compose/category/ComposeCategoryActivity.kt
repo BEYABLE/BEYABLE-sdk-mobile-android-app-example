@@ -7,14 +7,19 @@ import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.Alignment
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CircularProgressIndicator
@@ -25,7 +30,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -95,7 +99,11 @@ fun CategoryScreen(category: Category, viewModel: CategoryViewModel = remember {
 
     // Display a loading indicator while data is being fetched
     if (state.isLoading) {
-        CircularProgressIndicator()
+        Box(modifier = Modifier.fillMaxSize()) {
+            CircularProgressIndicator(
+                modifier = Modifier.align(Alignment.Center)
+            )
+        }
     }
     // Display products
     LazyColumn {
@@ -103,7 +111,6 @@ fun CategoryScreen(category: Category, viewModel: CategoryViewModel = remember {
             ProductRow(product = product, LocalContext.current)
         }
     }
-
     LaunchedEffect(category) {
         val attributes = BYCategoryAttributes()
         attributes.name = category.title
@@ -125,7 +132,8 @@ fun CategoryScreen(category: Category, viewModel: CategoryViewModel = remember {
                 override fun onError() {
                     viewModel.onRequestError("BEYABLE ERROR")
                 }
-            })
+            },
+            true)
     }
 }
 
@@ -140,51 +148,69 @@ fun ProductRow(product: Product, context: Context) {
             },
         colors = CardColors(contentColor = Color.Transparent, containerColor = Color.Transparent, disabledContainerColor = Color.Transparent, disabledContentColor = Color.Transparent)
     ) {
-        Row(
-            modifier = Modifier.padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // Image
-            GlideImage(
-                imageModel = { product.thumbnail },
-                modifier = Modifier
-                    .size(120.dp) // Fixed size for the image
-                    .clip(RoundedCornerShape(8.dp)), //
-            )
-
-            // Text content
-            Column(
-                modifier = Modifier
-                    .padding(start = 8.dp) // Space between image and text
-                    .weight(1f) // Allow the text to take the remaining space
-            ) {
-                Text(
-                    text = product.title,
-                    style = MaterialTheme.typography.bodyLarge, // Larger font size for the title
-                    maxLines = 1, // Ellipsis if title is too long
-                    overflow = TextOverflow.Ellipsis,
-                    color = Color.Black
-                )
+        Column {
+            Row (modifier = Modifier.padding(horizontal = 12.dp), Arrangement.SpaceEvenly) {
                 BYInCollectionPlaceHolder(path="compose_category/", placeHolderId = "product_title", elementId = product.title,
                     callback = { elementId, placeHolderId ->
-
-                })
-                Text(
-                    text = product.category,
-                    style = MaterialTheme.typography.bodyMedium, // Medium font size for the category
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f), // Slightly muted color
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                        Log.d("Compose", "Clicked $elementId - $placeHolderId")
+                    }) {
+                    Text(
+                        text = "Left PH",
+                        style = MaterialTheme.typography.bodyLarge, // Larger font size for the title
+                        maxLines = 1, // Ellipsis if title is too long
+                        overflow = TextOverflow.Ellipsis,
+                        color = Color.Black
+                    )
+                }
+                Spacer(modifier = Modifier.weight(1f))
+                BYInCollectionPlaceHolder(path="compose_category/", placeHolderId = "product_price", elementId = product.title) {
+                    Text(
+                        text = "Right PH",
+                        style = MaterialTheme.typography.bodyLarge, // Larger font size for the title
+                        maxLines = 1, // Ellipsis if title is too long
+                        overflow = TextOverflow.Ellipsis,
+                        color = Color.Black
+                    )
+                }
+            }
+            Row(
+                modifier = Modifier.padding(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Image
+                GlideImage(
+                    imageModel = { product.thumbnail },
+                    modifier = Modifier
+                        .size(120.dp) // Fixed size for the image
+                        .clip(RoundedCornerShape(8.dp)), //
                 )
-                Text(
-                    text = "$${product.price}", // Adding a dollar sign for the price
-                    style = MaterialTheme.typography.bodyLarge, // Smaller font size for the price
-                    color = MaterialTheme.colorScheme.primary // Highlighting the price
-                )
-                BYInCollectionPlaceHolder(path="compose_category/", placeHolderId = "product_price", elementId = product.title,
-                    callback = { elementId, placeHolderId ->
 
-                })
+                // Text content
+                Column(
+                    modifier = Modifier
+                        .padding(start = 8.dp) // Space between image and text
+                        .weight(1f) // Allow the text to take the remaining space
+                ) {
+                    Text(
+                        text = product.title,
+                        style = MaterialTheme.typography.bodyLarge, // Larger font size for the title
+                        maxLines = 1, // Ellipsis if title is too long
+                        overflow = TextOverflow.Ellipsis,
+                        color = Color.Black
+                    )
+                    Text(
+                        text = product.category,
+                        style = MaterialTheme.typography.bodyMedium, // Medium font size for the category
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f), // Slightly muted color
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Text(
+                        text = "$${product.price}", // Adding a dollar sign for the price
+                        style = MaterialTheme.typography.bodyLarge, // Smaller font size for the price
+                        color = MaterialTheme.colorScheme.primary // Highlighting the price
+                    )
+                }
             }
         }
     }
